@@ -7,8 +7,11 @@
 #include "GestionTransacciones.h"
 #include "string_conv.h"
 
-VentanaPrincipal::VentanaPrincipal(GestionPersonas *m_agenda,GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones) : 
-	vPrincipal(nullptr),m_agenda(m_agenda),m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones){
+VentanaPrincipal::VentanaPrincipal(GestionPersonas *m_agenda,GestionHabitaciones *m_agendaHabitaciones,
+		GestionTransacciones *m_transacciones, GestionCalendario *calendario) : vPrincipal(nullptr),m_agenda(m_agenda),
+		m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), 
+		calendario(calendario){
+	
 	this->SetFocus();
 	CargarInformacion();
 }
@@ -18,7 +21,7 @@ VentanaPrincipal::~VentanaPrincipal() {
 }
 
 void VentanaPrincipal::ClickBotonHabitacion( wxCommandEvent& event )  {
-	ListaHabitaciones *win = new ListaHabitaciones(this,m_agendaHabitaciones, m_transacciones, m_agenda);
+	ListaHabitaciones *win = new ListaHabitaciones(this,m_agendaHabitaciones, m_transacciones, m_agenda, calendario);
 	win -> Show();
 }
 

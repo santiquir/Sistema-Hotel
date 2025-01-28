@@ -26,7 +26,10 @@
 #include <wx/frame.h>
 #include <wx/textctrl.h>
 #include <wx/grid.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
 #include <wx/choice.h>
+#include <wx/calctrl.h>
 #include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -78,19 +81,26 @@ class listHabitaciones : public wxFrame
 		wxTextCtrl* BuscadorHabitaciones;
 		wxBitmapButton* BotonBuscarHabitacion;
 		wxGrid* GrillaHabitaciones;
+		wxButton* BotonCalendario;
 		wxBitmapButton* BotonAgregarHabitacion;
 		wxBitmapButton* BotonEliminarHabitacion;
 		wxBitmapButton* m_button8;
 		wxStaticText* m_staticText3;
 		wxStaticText* m_staticText4;
 		wxTextCtrl* InputAgregarHabitacion;
-		wxBitmapButton* BotonReservar;
-		wxBitmapButton* BotonQuitarReserva;
+		wxStaticText* m_staticText64;
+		wxDatePickerCtrl* FechaEntrada;
+		wxStaticText* m_staticText65;
+		wxDatePickerCtrl* FechaSalida;
 		wxStaticBitmap* m_bitmap2;
 		wxChoice* SelectorHuesped;
+		wxBitmapButton* BotonReservar;
+		wxButton* m_button2;
+		wxBitmapButton* BotonQuitarReserva;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonBuscarHabitacion( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonCalendario( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonAgregarHabitacion( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonEliminarHabitacion( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonModificarHabitacion( wxCommandEvent& event ) { event.Skip(); }
@@ -100,9 +110,33 @@ class listHabitaciones : public wxFrame
 	
 	public:
 		
-		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 633,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHabitaciones();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class Calendario
+///////////////////////////////////////////////////////////////////////////////
+class Calendario : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText66;
+		wxChoice* TextoNumeroHabReserva;
+		wxButton* BotonBuscarReservas;
+		wxCalendarCtrl* m_calendario;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBotonBuscarReservas( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		Calendario( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 509,349 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~Calendario();
 	
 };
 

@@ -6,13 +6,14 @@
 #include "string_conv.h"
 #include <sstream>
 #include "Persona.h"
+#include "CalendarioHabitaciones.h"
 using namespace std;
 
 
 ListaHabitaciones::ListaHabitaciones(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones,
-		GestionTransacciones *m_transacciones, GestionPersonas *m_agenda) : listHabitaciones(parent),
-		m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), m_agenda(m_agenda){
-	
+		GestionTransacciones *m_transacciones, GestionPersonas *m_agenda, GestionCalendario *calendario) : listHabitaciones(parent),
+		m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), m_agenda(m_agenda),
+		calendario(calendario){
 
 	refrescarGrilla();
 	refrescarSelector();
@@ -113,15 +114,11 @@ void ListaHabitaciones::ClickBotonEliminarHabitacion( wxCommandEvent& event )  {
 void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 	long numero;
 	
-	if (!InputAgregarHabitacion->GetValue().ToLong(&numero)) {
+	if (!InputAgregarHabitacion->GetValue().ToLong(&numero) || numero < 0) {
 		wxMessageBox("Por favor, ingrese un número válido.", "Error", wxICON_ERROR);
 		return;
 	}
 	
-	if (numero < 0) {
-		wxMessageBox("La habitación no existe.", "Error", wxICON_ERROR);
-		return;
-	}
 	
 	if(SelectorHuesped->GetStringSelection().IsEmpty()){
 		wxMessageBox("Por favor, ingrese un huesped.", "Error", wxICON_ERROR);
@@ -155,6 +152,21 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 		return;
 	}
 	
+	wxDateTime entrada = FechaEntrada->GetValue();
+	wxDateTime salida = FechaSalida->GetValue();
+	wxDateTime actual = wxDateTime::Now();
+	if(entrada.GetTicks() > salida.GetTicks()){
+		wxMessageBox("Lsa fechas no son validas.", "Error", wxICON_ERROR);
+		return;
+	}
+	
+	if(entrada.GetTicks() < actual.GetTicks()){
+		wxMessageBox("La fecha de entra es antigua.", "Error", wxICON_ERROR);
+		return;
+	}
+	
+	
+	
 	if (m_agendaHabitaciones->reservar(numero)) {
 		wxMessageBox("Reserva realizada con éxito.", "Éxito", wxICON_INFORMATION);
 		m_agendaHabitaciones->guardar();
@@ -183,7 +195,13 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 		}
 		
 		m_agenda->Guardar();
+		
+		calendario->AgregarReserva(entrada,salida,numero);
+		calendario->GuardarEnArchivo();
+		
 		InputAgregarHabitacion->Clear();
+		
+		
 		
 		refrescarGrilla();
 	} else {
@@ -250,6 +268,10 @@ void ListaHabitaciones::ClickBotonModificarHabitacion( wxCommandEvent& event )  
 	if(win.ShowModal()==1) refrescarGrilla();
 }
 
+void ListaHabitaciones::ClickBotonCalendario( wxCommandEvent& event )  {
+	CalendarioHabitaciones *win = new CalendarioHabitaciones(this,calendario,m_agendaHabitaciones);
+	win -> Show();
+}
 std::string ListaHabitaciones::FormatearNumero(long numero) {
 	std::string numeroStr = std::to_string(numero); 
 	int n = numeroStr.length();
@@ -260,4 +282,5 @@ std::string ListaHabitaciones::FormatearNumero(long numero) {
 	}
 	return numeroStr;
 }
+
 

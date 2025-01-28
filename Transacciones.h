@@ -13,8 +13,8 @@ protected:
 	void ClickBotonCambiarAlias( wxCommandEvent& event )  override;
 	void ClickBotonCambiarCBU( wxCommandEvent& event )  override;
 	void ClickBotonAgregarTransaccion( wxCommandEvent& event )  override;
-	double dinero;
 	string FormatearNumero(long numero);
+	double dinero;
 	GestionHabitaciones *m_agendaHabitaciones;
 	GestionTransacciones *m_transacciones;
 	

@@ -5,6 +5,7 @@
 #include "GestionTransacciones.h"
 #include <vector>
 #include "GestionPersona.h"
+#include "GestionCalendario.h"
 using namespace std;
 
 class ListaHabitaciones : public listHabitaciones {
@@ -12,11 +13,13 @@ class ListaHabitaciones : public listHabitaciones {
 private:
 	
 protected:
+	void ClickBotonCalendario( wxCommandEvent& event )  override;
 	void ClickBotonModificarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonQuitarReserva( wxCommandEvent& event )  override;
 	GestionHabitaciones *m_agendaHabitaciones;
 	GestionTransacciones *m_transacciones;
 	GestionPersonas *m_agenda;
+	GestionCalendario *calendario;
 	vector<int> indices;
 	void ClickBotonBuscarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonEliminarHabitacion( wxCommandEvent& event )  override;
@@ -27,7 +30,7 @@ protected:
 	
 public:
 	ListaHabitaciones(wxWindow *parent,GestionHabitaciones *m_agendaHabitaciones,
-					  GestionTransacciones *m_transacciones, GestionPersonas *m_agenda);
+					  GestionTransacciones *m_transacciones, GestionPersonas *m_agenda, GestionCalendario *calendario);
 	~ListaHabitaciones();
 	void refrescarGrilla();
 	void refrescarSelector();

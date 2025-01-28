@@ -4,6 +4,7 @@
 #include "GestionPersona.h"
 #include "GestionHabitaciones.h"
 #include "GestionTransacciones.h"
+#include "GestionCalendario.h"
 
 class VentanaPrincipal : public vPrincipal {
 	
@@ -17,9 +18,11 @@ protected:
 	GestionPersonas *m_agenda;
 	GestionHabitaciones *m_agendaHabitaciones;
 	GestionTransacciones *m_transacciones;
+	GestionCalendario *calendario;
 	
 public:
-	VentanaPrincipal(GestionPersonas *m_agenda, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones);
+	VentanaPrincipal(GestionPersonas *m_agenda, GestionHabitaciones *m_agendaHabitaciones,
+		GestionTransacciones *m_transacciones, GestionCalendario *calendario);
 	~VentanaPrincipal();
 };
 

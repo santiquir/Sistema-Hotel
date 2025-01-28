@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <wx/datetime.h>
 using namespace std;
 
 struct habitacion_str {
@@ -22,7 +23,7 @@ class Habitacion{
         float verPrecio() const;
         bool verEstado() const;
         int verNumero() const;
-
+		
         void actualizarTipo(string t);
         void actualizarNumero(int n);
         void actualizarPrecio(float p);

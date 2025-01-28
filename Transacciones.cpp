@@ -113,13 +113,14 @@ void Transacciones::ClickDescargarHistorial( wxCommandEvent& event )  {
 	file.close();
 	wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
 }
-string Transacciones::FormatearNumero(long numero) {
-	std::string numeroStr = std::to_string(numero);
+std::string Transacciones::FormatearNumero(long numero) {
+	std::string numeroStr = std::to_string(numero); 
 	int n = numeroStr.length();
 	
-
+	
 	for (int i = n - 3; i > 0; i -= 3) {
 		numeroStr.insert(i, ",");
 	}
 	return numeroStr;
 }
+

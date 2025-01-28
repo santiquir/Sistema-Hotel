@@ -182,7 +182,7 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	bSizer7->Add( bSizer8, 0, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer11;
-	bSizer11 = new wxBoxSizer( wxVERTICAL );
+	bSizer11 = new wxBoxSizer( wxHORIZONTAL );
 	
 	GrillaHabitaciones = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
@@ -221,13 +221,16 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	// Cell Defaults
 	GrillaHabitaciones->SetDefaultCellFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
 	GrillaHabitaciones->SetDefaultCellAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	bSizer11->Add( GrillaHabitaciones, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer11->Add( GrillaHabitaciones, 1, wxALL|wxEXPAND, 5 );
 	
 	
-	bSizer7->Add( bSizer11, 1, wxEXPAND, 5 );
+	bSizer7->Add( bSizer11, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	wxBoxSizer* bSizer10;
 	bSizer10 = new wxBoxSizer( wxHORIZONTAL );
+	
+	BotonCalendario = new wxButton( this, wxID_ANY, wxT("Calendario"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer10->Add( BotonCalendario, 0, wxALL, 5 );
 	
 	BotonAgregarHabitacion = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
 	
@@ -271,15 +274,27 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	InputAgregarHabitacion = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer12->Add( InputAgregarHabitacion, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	BotonReservar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_reservar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	m_staticText64 = new wxStaticText( this, wxID_ANY, wxT("Entrada"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText64->Wrap( -1 );
+	m_staticText64->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
 	
-	BotonReservar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_reservar hover.png"), wxBITMAP_TYPE_ANY ) );
-	bSizer12->Add( BotonReservar, 0, wxALL, 5 );
+	bSizer12->Add( m_staticText64, 0, wxALL, 5 );
 	
-	BotonQuitarReserva = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_quitar-reserva.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	FechaEntrada = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
+	FechaEntrada->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
 	
-	BotonQuitarReserva->SetBitmapHover( wxBitmap( wxT("Imagenes/button_quitar-reserva hover.png"), wxBITMAP_TYPE_ANY ) );
-	bSizer12->Add( BotonQuitarReserva, 0, wxALL, 5 );
+	bSizer12->Add( FechaEntrada, 0, wxALL, 5 );
+	
+	m_staticText65 = new wxStaticText( this, wxID_ANY, wxT("Salida"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText65->Wrap( -1 );
+	m_staticText65->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
+	bSizer12->Add( m_staticText65, 0, wxALL, 5 );
+	
+	FechaSalida = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
+	FechaSalida->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
+	bSizer12->Add( FechaSalida, 0, wxALL|wxEXPAND, 5 );
 	
 	
 	bSizer7->Add( bSizer12, 0, wxEXPAND, 5 );
@@ -300,6 +315,25 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	
 	bSizer7->Add( bSizer80, 0, wxEXPAND, 5 );
 	
+	wxBoxSizer* bSizer86;
+	bSizer86 = new wxBoxSizer( wxHORIZONTAL );
+	
+	BotonReservar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_reservar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonReservar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_reservar hover.png"), wxBITMAP_TYPE_ANY ) );
+	bSizer86->Add( BotonReservar, 0, wxALL|wxEXPAND, 5 );
+	
+	m_button2 = new wxButton( this, wxID_ANY, wxT("Ocupar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer86->Add( m_button2, 0, wxALL, 5 );
+	
+	BotonQuitarReserva = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_quitar-reserva.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonQuitarReserva->SetBitmapHover( wxBitmap( wxT("Imagenes/button_quitar-reserva hover.png"), wxBITMAP_TYPE_ANY ) );
+	bSizer86->Add( BotonQuitarReserva, 0, wxALL|wxEXPAND, 5 );
+	
+	
+	bSizer7->Add( bSizer86, 0, 0, 5 );
+	
 	
 	this->SetSizer( bSizer7 );
 	this->Layout();
@@ -308,6 +342,7 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	
 	// Connect Events
 	BotonBuscarHabitacion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonBuscarHabitacion ), NULL, this );
+	BotonCalendario->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonCalendario ), NULL, this );
 	BotonAgregarHabitacion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonAgregarHabitacion ), NULL, this );
 	BotonEliminarHabitacion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonEliminarHabitacion ), NULL, this );
 	m_button8->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonModificarHabitacion ), NULL, this );
@@ -319,11 +354,72 @@ listHabitaciones::~listHabitaciones()
 {
 	// Disconnect Events
 	BotonBuscarHabitacion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonBuscarHabitacion ), NULL, this );
+	BotonCalendario->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonCalendario ), NULL, this );
 	BotonAgregarHabitacion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonAgregarHabitacion ), NULL, this );
 	BotonEliminarHabitacion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonEliminarHabitacion ), NULL, this );
 	m_button8->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonModificarHabitacion ), NULL, this );
 	BotonReservar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonReservar ), NULL, this );
 	BotonQuitarReserva->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( listHabitaciones::ClickBotonQuitarReserva ), NULL, this );
+	
+}
+
+Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	
+	wxBoxSizer* bSizer84;
+	bSizer84 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer85;
+	bSizer85 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText66 = new wxStaticText( this, wxID_ANY, wxT("Numero de habitacion"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText66->Wrap( -1 );
+	m_staticText66->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
+	bSizer85->Add( m_staticText66, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	wxArrayString TextoNumeroHabReservaChoices;
+	TextoNumeroHabReserva = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, TextoNumeroHabReservaChoices, 0 );
+	TextoNumeroHabReserva->SetSelection( 0 );
+	TextoNumeroHabReserva->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
+	bSizer85->Add( TextoNumeroHabReserva, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	BotonBuscarReservas = new wxButton( this, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonBuscarReservas->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
+	bSizer85->Add( BotonBuscarReservas, 0, wxALL, 5 );
+	
+	
+	bSizer84->Add( bSizer85, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	wxBoxSizer* bSizer87;
+	bSizer87 = new wxBoxSizer( wxVERTICAL );
+	
+	m_calendario = new wxCalendarCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize( 400,300 ), wxCAL_SHOW_HOLIDAYS );
+	m_calendario->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
+	bSizer87->Add( m_calendario, 1, wxALL|wxEXPAND, 5 );
+	
+	
+	bSizer84->Add( bSizer87, 1, wxEXPAND, 5 );
+	
+	
+	this->SetSizer( bSizer84 );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+	
+	// Connect Events
+	BotonBuscarReservas->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonBuscarReservas ), NULL, this );
+}
+
+Calendario::~Calendario()
+{
+	// Disconnect Events
+	BotonBuscarReservas->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonBuscarReservas ), NULL, this );
 	
 }
 
@@ -1257,9 +1353,7 @@ LoginTransacciones::LoginTransacciones( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* bSizer39;
 	bSizer39 = new wxBoxSizer( wxVERTICAL );
 	
-	TextoContrasena = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD);
-	TextoContrasena->SetForegroundColour(*wxBLACK); 
-	TextoContrasena->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT)); 
+	TextoContrasena = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoContrasena->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
 	
 	bSizer39->Add( TextoContrasena, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 12 );
