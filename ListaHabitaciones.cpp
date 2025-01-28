@@ -30,7 +30,7 @@ void ListaHabitaciones::refrescarGrilla(){
 		GrillaHabitaciones->AppendRows();
 		GrillaHabitaciones->SetCellValue(i,0,to_string(p.verNumero()));
 		GrillaHabitaciones->SetCellValue(i,1,p.verTipo());
-		GrillaHabitaciones->SetCellValue(i,2,"$"+to_string(p.verPrecio()));
+		GrillaHabitaciones->SetCellValue(i,2,"$"+FormatearNumero(p.verPrecio()));
 		string s;
 		if(p.verEstado()==true) s = "Ocupado";
 		else s = "Libre";
@@ -84,7 +84,7 @@ void ListaHabitaciones::ClickBotonBuscarHabitacion( wxCommandEvent& event )  {
 			GrillaHabitaciones->AppendRows();
 			GrillaHabitaciones->SetCellValue(cont,0,to_string(p.verNumero()));
 			GrillaHabitaciones->SetCellValue(cont,1,p.verTipo());
-			GrillaHabitaciones->SetCellValue(cont,2,to_string(p.verPrecio()));
+			GrillaHabitaciones->SetCellValue(cont,2,FormatearNumero(p.verPrecio()));
 			string s;
 			if(p.verEstado()==true) s = "Ocupado";
 			else s = "Libre";
@@ -128,6 +128,18 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 		return;
 	}
 	
+	if(m_agenda->verHabitacionHuesped(numero)){
+		wxMessageBox("Esta habitacion ya esta ocupada.", "Error", wxICON_ERROR);
+		return;
+	}
+	
+	string nombreCompleto = wx_to_std(SelectorHuesped->GetStringSelection());
+	if(m_agenda->repetirHabitacion(nombreCompleto)){
+		wxMessageBox("El huesped ingresado ya posee una habitacion.", "Error", wxICON_ERROR);
+		return;
+	}
+	
+	
 	bool esta = false; long monto = 0;
 	for (int i = 0; i < m_agendaHabitaciones->verCantidadHabitaciones(); i++) {
 		if (m_agendaHabitaciones->verHabitacion(i).verNumero() == numero) {
@@ -153,7 +165,7 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 		m_transacciones->GuardarActividad();
 		
 		string nombre,apellido;
-		string nombreCompleto = wx_to_std(SelectorHuesped->GetStringSelection());
+		
 		for(int i = 0; m_agenda->CantidadDatos();i++){
 			Persona &p = m_agenda->verPersona(i); 
 			
@@ -172,7 +184,7 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 		
 		m_agenda->Guardar();
 		InputAgregarHabitacion->Clear();
-		SelectorHuesped->Clear();
+		
 		refrescarGrilla();
 	} else {
 		wxMessageBox("La habitación ya está ocupada.", "Error", wxICON_ERROR);
@@ -236,5 +248,16 @@ void ListaHabitaciones::ClickBotonModificarHabitacion( wxCommandEvent& event )  
 	
 	ModificarHabitaciones win(this,aModificar,m_agendaHabitaciones);
 	if(win.ShowModal()==1) refrescarGrilla();
+}
+
+std::string ListaHabitaciones::FormatearNumero(long numero) {
+	std::string numeroStr = std::to_string(numero); 
+	int n = numeroStr.length();
+	
+	
+	for (int i = n - 3; i > 0; i -= 3) {
+		numeroStr.insert(i, ",");
+	}
+	return numeroStr;
 }
 

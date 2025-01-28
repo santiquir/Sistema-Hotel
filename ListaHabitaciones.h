@@ -22,6 +22,7 @@ protected:
 	void ClickBotonEliminarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonReservar( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHabitacion( wxCommandEvent& event )  override;
+	string FormatearNumero(long numero);
 	
 	
 public:

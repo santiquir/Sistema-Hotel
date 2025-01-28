@@ -13,10 +13,9 @@ protected:
 	void ClickBotonBuscarHuesped( wxCommandEvent& event )  override;
 	void ClickBotonEliminarHuesped( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHuesped( wxCommandEvent& event )  override;
-	//void CargarDatosEnGrilla();
+	vector<int> indices;
 	
 public:
-	//ListaHuespedes(wxWindow *parent=NULL);
 	ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda);
 	~ListaHuespedes();
 	void refrescarGrilla();

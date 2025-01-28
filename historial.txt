@@ -1,0 +1,34 @@
+Monto: 2000 Motivo: Venta ropa
+Monto: 6000 Motivo: Compra alimentos
+Monto: 222 Motivo: Reserva de la habitacion 15
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 222 Motivo: Reserva de la habitacion 15
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 222 Motivo: Reserva de la habitacion 15
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 222 Motivo: Reserva de la habitacion 15
+Monto: 999 Motivo: Reserva de la habitacion 11
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 2342 Motivo: Reserva de la habitacion 8
+Monto: 823 Motivo: Reserva de la habitacion 10
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 999 Motivo: Reserva de la habitacion 11
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 444 Motivo: Reserva de la habitacion 12
+Monto: 35754 Motivo: Reserva de la habitacion 1
+Monto: 9000 Motivo: Compra a
+Monto: 1000 Motivo: Venta v
+Monto: 1000 Motivo: Venta r
+Monto: 1000 Motivo: Compra a
+Monto: 1000 Motivo: Compra h
+Monto: 2222 Motivo: Reserva de la habitacion 9
+Monto: 823 Motivo: Reserva de la habitacion 10
+Monto: 823 Motivo: Reserva de la habitacion 10
+Monto: 2222 Motivo: Compra verdura
+Monto: 1824 Motivo: Pago-4
+Monto: 7896 Motivo: Pago-3
+Monto: 4352 Motivo: Pago-2
+Monto: 3892 Motivo: Pago-1

@@ -44,6 +44,34 @@ int GestionPersonas::CantidadDatos() {
     return personas.size();
 }
 
+bool GestionPersonas::verHabitacionHuesped(long n){
+	for(int i = 0 ; i < CantidadDatos(); i++){
+		if(personas[i].verHab() == to_string(n)){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GestionPersonas:: repetirHabitacion(string nombreCompleto){
+	size_t pos = nombreCompleto.find(','); string nombre, apellido;
+	if (pos != string::npos) {
+		apellido = nombreCompleto.substr(0, pos); 
+		nombre = nombreCompleto.substr(pos + 2);
+	}
+	for(int i = 0; i < CantidadDatos(); i++){
+		if(personas[i].verNombre() == nombre && personas[i].verApellido() == apellido){
+			if(personas[i].verHab() == "-"){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 
 
 

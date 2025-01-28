@@ -86,27 +86,49 @@ vPrincipal::vPrincipal( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	bSizer84->Add( bSizer841, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 	
-	wxBoxSizer* Informacion;
-	Informacion = new wxBoxSizer( wxVERTICAL );
+	wxBoxSizer* bSizer86;
+	bSizer86 = new wxBoxSizer( wxVERTICAL );
 	
-	TextoCantidadHabitaciones = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	TextoCantidadHabitaciones->Wrap( -1 );
-	Informacion->Add( TextoCantidadHabitaciones, 0, wxALL|wxEXPAND, 5 );
+	m_staticText63 = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText63->Wrap( -1 );
+	bSizer86->Add( m_staticText63, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	
+	bSizer84->Add( bSizer86, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 45 );
+	
+	wxBoxSizer* Informacion;
+	Informacion = new wxBoxSizer( wxHORIZONTAL );
 	
 	TextoCantidadHuespedes = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
 	TextoCantidadHuespedes->Wrap( -1 );
+	TextoCantidadHuespedes->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
+	TextoCantidadHuespedes->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	Informacion->Add( TextoCantidadHuespedes, 0, wxALL|wxEXPAND, 5 );
+	
+	TextoCantidadHabitaciones = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
+	TextoCantidadHabitaciones->Wrap( -1 );
+	TextoCantidadHabitaciones->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
+	TextoCantidadHabitaciones->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
+	Informacion->Add( TextoCantidadHabitaciones, 0, wxALL|wxEXPAND, 5 );
 	
 	TextoCantidadLibres = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
 	TextoCantidadLibres->Wrap( -1 );
+	TextoCantidadLibres->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
+	TextoCantidadLibres->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	Informacion->Add( TextoCantidadLibres, 0, wxALL|wxEXPAND, 5 );
 	
 	TextoCantidadOcupadas = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
 	TextoCantidadOcupadas->Wrap( -1 );
+	TextoCantidadOcupadas->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
+	TextoCantidadOcupadas->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	Informacion->Add( TextoCantidadOcupadas, 0, wxALL|wxEXPAND, 5 );
 	
 	
-	bSizer84->Add( Informacion, 1, wxALL|wxEXPAND, 5 );
+	bSizer84->Add( Informacion, 0, wxALIGN_RIGHT, 5 );
 	
 	
 	bSizer2->Add( bSizer84, 1, wxEXPAND, 5 );
@@ -202,7 +224,7 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	bSizer11->Add( GrillaHabitaciones, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
-	bSizer7->Add( bSizer11, 0, wxEXPAND, 5 );
+	bSizer7->Add( bSizer11, 1, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer10;
 	bSizer10 = new wxBoxSizer( wxHORIZONTAL );
@@ -308,6 +330,7 @@ listHabitaciones::~listHabitaciones()
 AgHabitacion::AgHabitacion( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 600,360 ), wxSize( 600,360 ) );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer13;
 	bSizer13 = new wxBoxSizer( wxVERTICAL );
@@ -317,6 +340,8 @@ AgHabitacion::AgHabitacion( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	m_staticText5 = new wxStaticText( this, wxID_ANY, wxT("Número:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText5->Wrap( -1 );
+	m_staticText5->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer14->Add( m_staticText5, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoNumeroHab = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
@@ -330,6 +355,8 @@ AgHabitacion::AgHabitacion( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	m_staticText6 = new wxStaticText( this, wxID_ANY, wxT("Tipo:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText6->Wrap( -1 );
+	m_staticText6->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer17->Add( m_staticText6, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoTipoHab = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
@@ -343,6 +370,8 @@ AgHabitacion::AgHabitacion( wxWindow* parent, wxWindowID id, const wxString& tit
 	
 	m_staticText7 = new wxStaticText( this, wxID_ANY, wxT("Precio:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText7->Wrap( -1 );
+	m_staticText7->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer16->Add( m_staticText7, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoPrecioHab = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
@@ -354,10 +383,14 @@ AgHabitacion::AgHabitacion( wxWindow* parent, wxWindowID id, const wxString& tit
 	wxBoxSizer* bSizer30;
 	bSizer30 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAceptarHab = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAceptarHab = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_aceptar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAceptarHab->SetBitmapHover( wxBitmap( wxT("Imagenes/button_aceptar (3).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer30->Add( BotonAceptarHab, 0, wxALL, 5 );
 	
-	BotonCancelarHab = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelarHab = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelarHab->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer30->Add( BotonCancelarHab, 0, wxALL, 5 );
 	
 	
@@ -385,6 +418,7 @@ AgHabitacion::~AgHabitacion()
 listHuespedes::listHuespedes( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer18;
 	bSizer18 = new wxBoxSizer( wxVERTICAL );
@@ -503,6 +537,7 @@ listHuespedes::~listHuespedes()
 ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer64;
 	bSizer64 = new wxBoxSizer( wxVERTICAL );
@@ -512,10 +547,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText41 = new wxStaticText( this, wxID_ANY, wxT("Nombre actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText41->Wrap( -1 );
+	m_staticText41->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer65->Add( m_staticText41, 0, wxALL, 5 );
 	
 	TextoNombreActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoNombreActual->Wrap( -1 );
+	TextoNombreActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer65->Add( TextoNombreActual, 0, wxALL, 5 );
 	
 	
@@ -526,9 +565,13 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText43 = new wxStaticText( this, wxID_ANY, wxT("Nuevo nombre:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText43->Wrap( -1 );
+	m_staticText43->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer70->Add( m_staticText43, 0, wxALL, 5 );
 	
 	TextoNombreNuevo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNombreNuevo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer70->Add( TextoNombreNuevo, 1, wxALL, 5 );
 	
 	
@@ -539,10 +582,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText44 = new wxStaticText( this, wxID_ANY, wxT("Apellido actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText44->Wrap( -1 );
+	m_staticText44->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer69->Add( m_staticText44, 0, wxALL, 5 );
 	
 	TextoApellidoActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoApellidoActual->Wrap( -1 );
+	TextoApellidoActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer69->Add( TextoApellidoActual, 0, wxALL, 5 );
 	
 	
@@ -553,9 +600,13 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText46 = new wxStaticText( this, wxID_ANY, wxT("Nuevo apellido:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText46->Wrap( -1 );
+	m_staticText46->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer68->Add( m_staticText46, 0, wxALL, 5 );
 	
 	TextoNuevoApellido = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoApellido->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer68->Add( TextoNuevoApellido, 1, wxALL, 5 );
 	
 	
@@ -566,10 +617,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText47 = new wxStaticText( this, wxID_ANY, wxT("Email actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText47->Wrap( -1 );
+	m_staticText47->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer67->Add( m_staticText47, 0, wxALL, 5 );
 	
 	TextoEmailActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoEmailActual->Wrap( -1 );
+	TextoEmailActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer67->Add( TextoEmailActual, 0, wxALL, 5 );
 	
 	
@@ -580,9 +635,13 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText49 = new wxStaticText( this, wxID_ANY, wxT("Nuevo email:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText49->Wrap( -1 );
+	m_staticText49->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer66->Add( m_staticText49, 0, wxALL, 5 );
 	
 	TextoNuevoEmail = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoEmail->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer66->Add( TextoNuevoEmail, 1, wxALL, 5 );
 	
 	
@@ -593,10 +652,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText50 = new wxStaticText( this, wxID_ANY, wxT("Teléfono actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText50->Wrap( -1 );
+	m_staticText50->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer71->Add( m_staticText50, 0, wxALL, 5 );
 	
 	TextoTelefonoActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoTelefonoActual->Wrap( -1 );
+	TextoTelefonoActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer71->Add( TextoTelefonoActual, 0, wxALL, 5 );
 	
 	
@@ -607,9 +670,13 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText52 = new wxStaticText( this, wxID_ANY, wxT("Nuevo Teléfono:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText52->Wrap( -1 );
+	m_staticText52->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer75->Add( m_staticText52, 0, wxALL, 5 );
 	
 	TextoNuevoTelefono = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoTelefono->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer75->Add( TextoNuevoTelefono, 1, wxALL, 5 );
 	
 	
@@ -620,10 +687,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText53 = new wxStaticText( this, wxID_ANY, wxT("DNI actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText53->Wrap( -1 );
+	m_staticText53->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer74->Add( m_staticText53, 0, wxALL, 5 );
 	
 	TextoDNIActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoDNIActual->Wrap( -1 );
+	TextoDNIActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer74->Add( TextoDNIActual, 0, wxALL, 5 );
 	
 	
@@ -634,9 +705,13 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText55 = new wxStaticText( this, wxID_ANY, wxT("Nuevo DNI:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText55->Wrap( -1 );
+	m_staticText55->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer73->Add( m_staticText55, 0, wxALL, 5 );
 	
 	TextoNuevoDNI = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoDNI->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer73->Add( TextoNuevoDNI, 1, wxALL, 5 );
 	
 	
@@ -647,26 +722,38 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText56 = new wxStaticText( this, wxID_ANY, wxT("Fecha actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText56->Wrap( -1 );
+	m_staticText56->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer72->Add( m_staticText56, 0, wxALL, 5 );
 	
 	TextoDiaActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoDiaActual->Wrap( -1 );
+	TextoDiaActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer72->Add( TextoDiaActual, 0, wxALL, 5 );
 	
 	m_staticText59 = new wxStaticText( this, wxID_ANY, wxT("/"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText59->Wrap( -1 );
+	m_staticText59->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer72->Add( m_staticText59, 0, wxALL, 5 );
 	
 	TextoMesActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoMesActual->Wrap( -1 );
+	TextoMesActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer72->Add( TextoMesActual, 0, wxALL, 5 );
 	
 	m_staticText61 = new wxStaticText( this, wxID_ANY, wxT("/"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText61->Wrap( -1 );
+	m_staticText61->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer72->Add( m_staticText61, 0, wxALL, 5 );
 	
 	TextoAnioActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoAnioActual->Wrap( -1 );
+	TextoAnioActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer72->Add( TextoAnioActual, 0, wxALL, 5 );
 	
 	
@@ -677,15 +764,23 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	
 	m_staticText58 = new wxStaticText( this, wxID_ANY, wxT("Nueva fecha:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText58->Wrap( -1 );
+	m_staticText58->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer76->Add( m_staticText58, 0, wxALL, 5 );
 	
 	TextoDiaNuevo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoDiaNuevo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer76->Add( TextoDiaNuevo, 1, wxALL, 5 );
 	
 	TextoMesNuevo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoMesNuevo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer76->Add( TextoMesNuevo, 1, wxALL, 5 );
 	
 	TextoAnioNuevo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoAnioNuevo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer76->Add( TextoAnioNuevo, 1, wxALL, 5 );
 	
 	
@@ -694,10 +789,14 @@ ModificarHuesped::ModificarHuesped( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer711;
 	bSizer711 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonModificar = new wxButton( this, wxID_ANY, wxT("Modificar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonModificar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_modificar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonModificar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_modificar hover.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer711->Add( BotonModificar, 0, wxALL, 5 );
 	
-	BotonCancelar = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer711->Add( BotonCancelar, 0, wxALL, 5 );
 	
 	
@@ -725,6 +824,7 @@ ModificarHuesped::~ModificarHuesped()
 AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 660,550 ), wxSize( 660,550 ) );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer24;
 	bSizer24 = new wxBoxSizer( wxVERTICAL );
@@ -734,9 +834,13 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText9 = new wxStaticText( this, wxID_ANY, wxT("Nombre:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText9->Wrap( -1 );
+	m_staticText9->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer25->Add( m_staticText9, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoNombre = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNombre->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer25->Add( TextoNombre, 1, wxALL, 20 );
 	
 	
@@ -747,9 +851,13 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText10 = new wxStaticText( this, wxID_ANY, wxT("Apellido:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText10->Wrap( -1 );
+	m_staticText10->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer30->Add( m_staticText10, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoApellido = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoApellido->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer30->Add( TextoApellido, 1, wxALL, 20 );
 	
 	
@@ -760,9 +868,13 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText11 = new wxStaticText( this, wxID_ANY, wxT("Email:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText11->Wrap( -1 );
+	m_staticText11->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer29->Add( m_staticText11, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoEmail = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoEmail->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer29->Add( TextoEmail, 1, wxALL, 20 );
 	
 	
@@ -773,9 +885,13 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText12 = new wxStaticText( this, wxID_ANY, wxT("Teléfono:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText12->Wrap( -1 );
+	m_staticText12->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer28->Add( m_staticText12, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoTelefono = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoTelefono->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer28->Add( TextoTelefono, 1, wxALL, 20 );
 	
 	
@@ -786,9 +902,13 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText13 = new wxStaticText( this, wxID_ANY, wxT("DNI:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText13->Wrap( -1 );
+	m_staticText13->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer27->Add( m_staticText13, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoDNI = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoDNI->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer27->Add( TextoDNI, 1, wxALL, 20 );
 	
 	
@@ -799,15 +919,23 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	
 	m_staticText14 = new wxStaticText( this, wxID_ANY, wxT("Fecha nacimiento:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText14->Wrap( -1 );
+	m_staticText14->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer26->Add( m_staticText14, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	TextoDia = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoDia->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer26->Add( TextoDia, 1, wxALL, 20 );
 	
 	TextoMes = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoMes->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer26->Add( TextoMes, 1, wxALL, 20 );
 	
 	TextoAno = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoAno->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer26->Add( TextoAno, 1, wxALL, 20 );
 	
 	
@@ -816,10 +944,14 @@ AgHuesped::AgHuesped( wxWindow* parent, wxWindowID id, const wxString& title, co
 	wxBoxSizer* bSizer291;
 	bSizer291 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAgregarHuesped = new wxButton( this, wxID_ANY, wxT("Agregar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAgregarHuesped = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAgregarHuesped->SetBitmapHover( wxBitmap( wxT("Imagenes/button_agregar hover.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer291->Add( BotonAgregarHuesped, 0, wxALL, 5 );
 	
-	BotonCancelarHuesped = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelarHuesped = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelarHuesped->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer291->Add( BotonCancelarHuesped, 0, wxALL, 5 );
 	
 	
@@ -863,11 +995,11 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	
 	DineroAcumulado = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	DineroAcumulado->Wrap( -1 );
-	DineroAcumulado->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	DineroAcumulado->SetFont( wxFont( 20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
 	DineroAcumulado->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_3DLIGHT ) );
 	DineroAcumulado->SetBackgroundColour( wxColour( 13, 27, 42 ) );
 	
-	bSizer34->Add( DineroAcumulado, 1, wxALL|wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	bSizer34->Add( DineroAcumulado, 0, wxALL|wxALIGN_CENTER_VERTICAL, 10 );
 	
 	
 	bSizer32->Add( bSizer34, 0, 0, 0 );
@@ -930,19 +1062,27 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	
 	bSizer311->Add( m_staticText28, 0, wxALL, 5 );
 	
-	DescargarHistorial = new wxButton( this, wxID_ANY, wxT("Descargar Historial"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer311->Add( DescargarHistorial, 0, wxALIGN_BOTTOM, 5 );
-	
-	BotonAgregarTransaccion = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
-	
-	BotonAgregarTransaccion->SetBitmapHover( wxBitmap( wxT("Imagenes/button_agregar hover.png"), wxBITMAP_TYPE_ANY ) );
-	bSizer311->Add( BotonAgregarTransaccion, 0, wxALL|wxALIGN_RIGHT, 5 );
-	
 	
 	bSizer31->Add( bSizer311, 0, wxEXPAND, 5 );
 	
 	wxBoxSizer* bSizer33;
-	bSizer33 = new wxBoxSizer( wxVERTICAL );
+	bSizer33 = new wxBoxSizer( wxHORIZONTAL );
+	
+	DescargarHistorial = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_descargar-historial.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	DescargarHistorial->SetBitmapHover( wxBitmap( wxT("Imagenes/button_descargar-historial (1).png"), wxBITMAP_TYPE_ANY ) );
+	bSizer33->Add( DescargarHistorial, 0, wxALL, 5 );
+	
+	BotonAgregarTransaccion = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAgregarTransaccion->SetBitmapHover( wxBitmap( wxT("Imagenes/button_agregar hover.png"), wxBITMAP_TYPE_ANY ) );
+	bSizer33->Add( BotonAgregarTransaccion, 0, wxALL, 5 );
+	
+	
+	bSizer31->Add( bSizer33, 0, wxALIGN_RIGHT, 5 );
+	
+	wxBoxSizer* bSizer42;
+	bSizer42 = new wxBoxSizer( wxVERTICAL );
 	
 	GrillaActividad = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
@@ -962,7 +1102,6 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	GrillaActividad->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
-	GrillaActividad->SetRowSize( 0, 200 );
 	GrillaActividad->EnableDragRowSize( true );
 	GrillaActividad->SetRowLabelSize( 0 );
 	GrillaActividad->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
@@ -972,16 +1111,10 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	// Cell Defaults
 	GrillaActividad->SetDefaultCellFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
 	GrillaActividad->SetDefaultCellAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	bSizer33->Add( GrillaActividad, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer42->Add( GrillaActividad, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
-	bSizer31->Add( bSizer33, 0, wxEXPAND, 5 );
-	
-	wxBoxSizer* bSizer42;
-	bSizer42 = new wxBoxSizer( wxVERTICAL );
-	
-	
-	bSizer31->Add( bSizer42, 0, wxALIGN_RIGHT, 5 );
+	bSizer31->Add( bSizer42, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
 	this->SetSizer( bSizer31 );
@@ -1009,6 +1142,7 @@ mTransacciones::~mTransacciones()
 AgTransaccion::AgTransaccion( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer43;
 	bSizer43 = new wxBoxSizer( wxVERTICAL );
@@ -1018,9 +1152,13 @@ AgTransaccion::AgTransaccion( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	m_staticText31 = new wxStaticText( this, wxID_ANY, wxT("Monto"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText31->Wrap( -1 );
+	m_staticText31->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer44->Add( m_staticText31, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoMonto = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoMonto->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer44->Add( TextoMonto, 0, wxALL, 5 );
 	
 	wxBoxSizer* bSizer78;
@@ -1030,6 +1168,10 @@ AgTransaccion::AgTransaccion( wxWindow* parent, wxWindowID id, const wxString& t
 	int SelectorNChoices = sizeof( SelectorChoices ) / sizeof( wxString );
 	Selector = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, SelectorNChoices, SelectorChoices, 0 );
 	Selector->SetSelection( 0 );
+	Selector->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	Selector->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_INACTIVECAPTIONTEXT ) );
+	Selector->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	
 	bSizer78->Add( Selector, 1, wxALL|wxEXPAND, 5 );
 	
 	
@@ -1043,9 +1185,13 @@ AgTransaccion::AgTransaccion( wxWindow* parent, wxWindowID id, const wxString& t
 	
 	m_staticText32 = new wxStaticText( this, wxID_ANY, wxT("Motivo"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText32->Wrap( -1 );
+	m_staticText32->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer45->Add( m_staticText32, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoMotivo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoMotivo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer45->Add( TextoMotivo, 0, wxALL|wxEXPAND, 5 );
 	
 	
@@ -1054,10 +1200,14 @@ AgTransaccion::AgTransaccion( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* bSizer46;
 	bSizer46 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAgregar = new wxButton( this, wxID_ANY, wxT("Agregar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAgregar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAgregar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_agregar hover.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer46->Add( BotonAgregar, 0, wxALL, 5 );
 	
-	BotonCancelar = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer46->Add( BotonCancelar, 0, wxALL, 5 );
 	
 	
@@ -1107,7 +1257,11 @@ LoginTransacciones::LoginTransacciones( wxWindow* parent, wxWindowID id, const w
 	wxBoxSizer* bSizer39;
 	bSizer39 = new wxBoxSizer( wxVERTICAL );
 	
-	TextoContrasena = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoContrasena = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PASSWORD);
+	TextoContrasena->SetForegroundColour(*wxBLACK); 
+	TextoContrasena->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT)); 
+	TextoContrasena->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer39->Add( TextoContrasena, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 12 );
 	
 	
@@ -1158,6 +1312,7 @@ LoginTransacciones::~LoginTransacciones()
 CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer73;
 	bSizer73 = new wxBoxSizer( wxVERTICAL );
@@ -1167,9 +1322,14 @@ CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	
 	m_staticText57 = new wxStaticText( this, wxID_ANY, wxT("Clave actual"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText57->Wrap( -1 );
+	m_staticText57->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_staticText57->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	bSizer74->Add( m_staticText57, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoClaveActual = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoClaveActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer74->Add( TextoClaveActual, 0, wxALL, 5 );
 	
 	
@@ -1180,9 +1340,14 @@ CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	
 	m_staticText59 = new wxStaticText( this, wxID_ANY, wxT("      Nueva clave      "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText59->Wrap( -1 );
+	m_staticText59->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_staticText59->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	bSizer76->Add( m_staticText59, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoNuevaClave = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevaClave->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer76->Add( TextoNuevaClave, 1, wxALL|wxEXPAND, 5 );
 	
 	
@@ -1193,9 +1358,14 @@ CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	
 	m_staticText60 = new wxStaticText( this, wxID_ANY, wxT("Repetir nueva clave"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText60->Wrap( -1 );
+	m_staticText60->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_staticText60->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	bSizer75->Add( m_staticText60, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoRepetirClave = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoRepetirClave->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer75->Add( TextoRepetirClave, 1, wxALL|wxEXPAND, 5 );
 	
 	
@@ -1204,11 +1374,15 @@ CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	wxBoxSizer* bSizer77;
 	bSizer77 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAcepar = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAcepar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_aceptar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAcepar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_aceptar (3).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer77->Add( BotonAcepar, 0, wxALL, 5 );
 	
-	BotonCancelar = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer77->Add( BotonCancelar, 0, wxALL, 5 );
+	m_bpButton30 = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	m_bpButton30->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
+	bSizer77->Add( m_bpButton30, 0, wxALL, 5 );
 	
 	
 	bSizer73->Add( bSizer77, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
@@ -1221,20 +1395,21 @@ CamClave::CamClave( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	
 	// Connect Events
 	BotonAcepar->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonAceparNuevaClave ), NULL, this );
-	BotonCancelar->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonCancelarClave ), NULL, this );
+	m_bpButton30->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonCancelarClave ), NULL, this );
 }
 
 CamClave::~CamClave()
 {
 	// Disconnect Events
 	BotonAcepar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonAceparNuevaClave ), NULL, this );
-	BotonCancelar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonCancelarClave ), NULL, this );
+	m_bpButton30->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CamClave::ClickBotonCancelarClave ), NULL, this );
 	
 }
 
 ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer45;
 	bSizer45 = new wxBoxSizer( wxVERTICAL );
@@ -1242,12 +1417,16 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer46;
 	bSizer46 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText24 = new wxStaticText( this, wxID_ANY, wxT("Número actual"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText24 = new wxStaticText( this, wxID_ANY, wxT("Número actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText24->Wrap( -1 );
+	m_staticText24->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer46->Add( m_staticText24, 0, wxALL, 5 );
 	
 	TextoNumeroActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoNumeroActual->Wrap( -1 );
+	TextoNumeroActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer46->Add( TextoNumeroActual, 0, wxALL, 5 );
 	
 	
@@ -1256,11 +1435,15 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer50;
 	bSizer50 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText25 = new wxStaticText( this, wxID_ANY, wxT("Nuevo número"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText25 = new wxStaticText( this, wxID_ANY, wxT("Nuevo número:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText25->Wrap( -1 );
+	m_staticText25->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer50->Add( m_staticText25, 0, wxALL, 5 );
 	
 	textoNuevoNumero = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	textoNuevoNumero->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer50->Add( textoNuevoNumero, 1, wxALL, 5 );
 	
 	
@@ -1269,12 +1452,16 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer49;
 	bSizer49 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText26 = new wxStaticText( this, wxID_ANY, wxT("Tipo actual"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText26 = new wxStaticText( this, wxID_ANY, wxT("Tipo actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText26->Wrap( -1 );
+	m_staticText26->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer49->Add( m_staticText26, 0, wxALL, 5 );
 	
 	TextoTipoActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoTipoActual->Wrap( -1 );
+	TextoTipoActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer49->Add( TextoTipoActual, 0, wxALL, 5 );
 	
 	
@@ -1283,11 +1470,15 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer48;
 	bSizer48 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText27 = new wxStaticText( this, wxID_ANY, wxT("Nuevo tipo"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText27 = new wxStaticText( this, wxID_ANY, wxT("Nuevo tipo:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText27->Wrap( -1 );
+	m_staticText27->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer48->Add( m_staticText27, 0, wxALL, 5 );
 	
 	textoNuevoTipo = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	textoNuevoTipo->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer48->Add( textoNuevoTipo, 1, wxALL, 5 );
 	
 	
@@ -1296,12 +1487,16 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer47;
 	bSizer47 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText28 = new wxStaticText( this, wxID_ANY, wxT("Precio actual"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText28 = new wxStaticText( this, wxID_ANY, wxT("Precio actual:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText28->Wrap( -1 );
+	m_staticText28->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer47->Add( m_staticText28, 0, wxALL, 5 );
 	
 	TextoPrecioActual = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	TextoPrecioActual->Wrap( -1 );
+	TextoPrecioActual->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer47->Add( TextoPrecioActual, 0, wxALL, 5 );
 	
 	
@@ -1310,11 +1505,15 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer51;
 	bSizer51 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText29 = new wxStaticText( this, wxID_ANY, wxT("Nuevo precio"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText29 = new wxStaticText( this, wxID_ANY, wxT("Nuevo precio:"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText29->Wrap( -1 );
+	m_staticText29->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	
 	bSizer51->Add( m_staticText29, 0, wxALL, 5 );
 	
 	textoNuevoPrecio = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	textoNuevoPrecio->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer51->Add( textoNuevoPrecio, 1, wxALL, 5 );
 	
 	
@@ -1323,10 +1522,14 @@ ModificarHabitacion::ModificarHabitacion( wxWindow* parent, wxWindowID id, const
 	wxBoxSizer* bSizer53;
 	bSizer53 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAceptarModificar = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAceptarModificar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_aceptar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAceptarModificar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_aceptar (3).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer53->Add( BotonAceptarModificar, 0, wxALL, 5 );
 	
-	BotonCancelarModificar = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelarModificar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelarModificar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer53->Add( BotonCancelarModificar, 0, wxALL, 5 );
 	
 	
@@ -1354,6 +1557,7 @@ ModificarHabitacion::~ModificarHabitacion()
 Alias::Alias( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer53;
 	bSizer53 = new wxBoxSizer( wxVERTICAL );
@@ -1363,9 +1567,14 @@ Alias::Alias( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	
 	NuevoAlias = new wxStaticText( this, wxID_ANY, wxT("Nuevo Alias"), wxDefaultPosition, wxDefaultSize, 0 );
 	NuevoAlias->Wrap( -1 );
+	NuevoAlias->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	NuevoAlias->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	bSizer54->Add( NuevoAlias, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoNuevoAlias = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoAlias->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer54->Add( TextoNuevoAlias, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
@@ -1374,10 +1583,14 @@ Alias::Alias( wxWindow* parent, wxWindowID id, const wxString& title, const wxPo
 	wxBoxSizer* bSizer55;
 	bSizer55 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAceptarNuevoAlias = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAceptarNuevoAlias = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_aceptar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAceptarNuevoAlias->SetBitmapHover( wxBitmap( wxT("Imagenes/button_aceptar (3).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer55->Add( BotonAceptarNuevoAlias, 0, wxALL, 5 );
 	
-	BotonCancelarNuevoAlias = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelarNuevoAlias = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelarNuevoAlias->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer55->Add( BotonCancelarNuevoAlias, 0, wxALL, 5 );
 	
 	
@@ -1405,24 +1618,35 @@ Alias::~Alias()
 CBU::CBU( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	this->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
 	
 	wxBoxSizer* bSizer54;
 	bSizer54 = new wxBoxSizer( wxVERTICAL );
 	
 	NuevoCBU = new wxStaticText( this, wxID_ANY, wxT("Nuevo CBU"), wxDefaultPosition, wxDefaultSize, 0 );
 	NuevoCBU->Wrap( -1 );
+	NuevoCBU->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	NuevoCBU->SetForegroundColour( wxColour( 65, 90, 119 ) );
+	
 	bSizer54->Add( NuevoCBU, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	TextoNuevoCBU = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	TextoNuevoCBU->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer54->Add( TextoNuevoCBU, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	wxBoxSizer* bSizer55;
 	bSizer55 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonAceptarNuevoCBU = new wxButton( this, wxID_ANY, wxT("Aceptar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonAceptarNuevoCBU = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_aceptar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonAceptarNuevoCBU->SetBitmapHover( wxBitmap( wxT("Imagenes/button_aceptar (3).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer55->Add( BotonAceptarNuevoCBU, 0, wxALL, 5 );
 	
-	BotonCancelarNuevoCBU = new wxButton( this, wxID_ANY, wxT("Cancelar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCancelarNuevoCBU = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_cancelar (1).png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCancelarNuevoCBU->SetBitmapHover( wxBitmap( wxT("Imagenes/button_cancelar.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer55->Add( BotonCancelarNuevoCBU, 0, wxALL, 5 );
 	
 	
@@ -1445,46 +1669,4 @@ CBU::~CBU()
 	BotonAceptarNuevoCBU->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CBU::ClickBotonAceptarNuevoCBU ), NULL, this );
 	BotonCancelarNuevoCBU->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CBU::ClickBotonCancelarNuevoCBU ), NULL, this );
 	
-}
-
-MyDialog9::MyDialog9( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* bSizer79;
-	bSizer79 = new wxBoxSizer( wxHORIZONTAL );
-	
-	wxBoxSizer* bSizer80;
-	bSizer80 = new wxBoxSizer( wxVERTICAL );
-	
-	m_dataViewListCtrl1 = new wxDataViewListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer80->Add( m_dataViewListCtrl1, 0, wxALL, 5 );
-	
-	
-	bSizer79->Add( bSizer80, 1, wxEXPAND, 5 );
-	
-	wxBoxSizer* bSizer82;
-	bSizer82 = new wxBoxSizer( wxVERTICAL );
-	
-	m_button33 = new wxButton( this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer82->Add( m_button33, 0, wxALL, 5 );
-	
-	m_button34 = new wxButton( this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer82->Add( m_button34, 0, wxALL, 5 );
-	
-	m_button35 = new wxButton( this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer82->Add( m_button35, 0, wxALL, 5 );
-	
-	
-	bSizer79->Add( bSizer82, 1, wxEXPAND, 5 );
-	
-	
-	this->SetSizer( bSizer79 );
-	this->Layout();
-	
-	this->Centre( wxBOTH );
-}
-
-MyDialog9::~MyDialog9()
-{
 }

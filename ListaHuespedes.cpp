@@ -15,6 +15,7 @@ void ListaHuespedes::refrescarGrilla(){
 	if (GrillaHuespedes->GetNumberRows() > 0) {
 		GrillaHuespedes->DeleteRows(0, GrillaHuespedes->GetNumberRows());
 	}
+	indices.clear();
 	
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
 		Persona &p = m_agenda->verPersona(i);
@@ -27,6 +28,7 @@ void ListaHuespedes::refrescarGrilla(){
 		GrillaHuespedes->SetCellValue(i,5,wxString::Format("%d/%d/%d", 
 														   p.verDiaNacimiento(), p.verMesNacimiento(), p.verAnioNacimiento()));
 		GrillaHuespedes->SetCellValue(i,6,p.verHab());
+		indices.push_back(i);
 	}
 }
 
@@ -48,7 +50,7 @@ void ListaHuespedes::ClickBotonBuscarHuesped( wxCommandEvent& event )  {
 	if (GrillaHuespedes->GetNumberRows() > 0) {
 		GrillaHuespedes->DeleteRows(0, GrillaHuespedes->GetNumberRows());
 	}
-	
+	indices.clear();
 	
 	int cont = 0;
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
@@ -66,6 +68,7 @@ void ListaHuespedes::ClickBotonBuscarHuesped( wxCommandEvent& event )  {
 			GrillaHuespedes->SetCellValue(cont,5,wxString::Format("%d/%d/%d", p.verDiaNacimiento(), p.verMesNacimiento(), p.verAnioNacimiento()));
 			GrillaHuespedes->SetCellValue(cont,6,p.verHab());
 			cont++;
+			indices.push_back(i);
 		}
 	}
 }
@@ -73,7 +76,9 @@ void ListaHuespedes::ClickBotonEliminarHuesped( wxCommandEvent& event )  {
 	int f = GrillaHuespedes->GetGridCursorRow();
 	int x = wxMessageBox("Estas seguro?", "Advertecia" ,wxYES_NO|wxICON_QUESTION);
 	if(x==wxYES){
-		m_agenda->eliminarPersona(f);	
+		int ind = indices[f];
+		m_agenda->eliminarPersona(ind);	
+		indices.erase(indices.begin()+f);
 		m_agenda->Guardar();
 		GrillaHuespedes->DeleteRows(f);
 		refrescarGrilla();
@@ -90,8 +95,8 @@ void ListaHuespedes::ClickBotonModificarHuesped(wxCommandEvent& event) {
 	return;
 	}
 	
-	
-	Persona *aModificar = &m_agenda->verPersona(f);
+	int ind = indices[f];
+	Persona *aModificar = &m_agenda->verPersona(ind);
 	
 	
 	ModificarHuespedes win(this, aModificar, m_agenda);

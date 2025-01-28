@@ -28,7 +28,6 @@
 #include <wx/grid.h>
 #include <wx/choice.h>
 #include <wx/dialog.h>
-#include <wx/dataview.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -47,8 +46,9 @@ class vPrincipal : public wxFrame
 		wxBitmapButton* BotonHabitaciones;
 		wxBitmapButton* BotonHuesped;
 		wxBitmapButton* BotonTransacciones;
-		wxStaticText* TextoCantidadHabitaciones;
+		wxStaticText* m_staticText63;
 		wxStaticText* TextoCantidadHuespedes;
+		wxStaticText* TextoCantidadHabitaciones;
 		wxStaticText* TextoCantidadLibres;
 		wxStaticText* TextoCantidadOcupadas;
 		
@@ -100,7 +100,7 @@ class listHabitaciones : public wxFrame
 	
 	public:
 		
-		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHabitaciones();
 	
@@ -120,8 +120,8 @@ class AgHabitacion : public wxDialog
 		wxTextCtrl* TextoTipoHab;
 		wxStaticText* m_staticText7;
 		wxTextCtrl* TextoPrecioHab;
-		wxButton* BotonAceptarHab;
-		wxButton* BotonCancelarHab;
+		wxBitmapButton* BotonAceptarHab;
+		wxBitmapButton* BotonCancelarHab;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAceptarHabitacion( wxCommandEvent& event ) { event.Skip(); }
@@ -160,7 +160,7 @@ class listHuespedes : public wxFrame
 	
 	public:
 		
-		listHuespedes( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 869,463 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHuespedes( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Huespedes"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 869,463 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHuespedes();
 	
@@ -204,8 +204,8 @@ class ModificarHuesped : public wxDialog
 		wxTextCtrl* TextoDiaNuevo;
 		wxTextCtrl* TextoMesNuevo;
 		wxTextCtrl* TextoAnioNuevo;
-		wxButton* BotonModificar;
-		wxButton* BotonCancelar;
+		wxBitmapButton* BotonModificar;
+		wxBitmapButton* BotonCancelar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonModificar( wxCommandEvent& event ) { event.Skip(); }
@@ -241,8 +241,8 @@ class AgHuesped : public wxDialog
 		wxTextCtrl* TextoDia;
 		wxTextCtrl* TextoMes;
 		wxTextCtrl* TextoAno;
-		wxButton* BotonAgregarHuesped;
-		wxButton* BotonCancelarHuesped;
+		wxBitmapButton* BotonAgregarHuesped;
+		wxBitmapButton* BotonCancelarHuesped;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAgregarHuesped( wxCommandEvent& event ) { event.Skip(); }
@@ -273,7 +273,7 @@ class mTransacciones : public wxFrame
 		wxStaticText* LabelCBU;
 		wxBitmapButton* BotonCambiarCBU;
 		wxStaticText* m_staticText28;
-		wxButton* DescargarHistorial;
+		wxBitmapButton* DescargarHistorial;
 		wxBitmapButton* BotonAgregarTransaccion;
 		wxGrid* GrillaActividad;
 		
@@ -286,7 +286,7 @@ class mTransacciones : public wxFrame
 	
 	public:
 		
-		mTransacciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 585,665 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		mTransacciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Transacciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 585,665 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~mTransacciones();
 	
@@ -305,8 +305,8 @@ class AgTransaccion : public wxDialog
 		wxChoice* Selector;
 		wxStaticText* m_staticText32;
 		wxTextCtrl* TextoMotivo;
-		wxButton* BotonAgregar;
-		wxButton* BotonCancelar;
+		wxBitmapButton* BotonAgregar;
+		wxBitmapButton* BotonCancelar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAgregar( wxCommandEvent& event ) { event.Skip(); }
@@ -315,7 +315,7 @@ class AgTransaccion : public wxDialog
 	
 	public:
 		
-		AgTransaccion( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 523,336 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		AgTransaccion( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 385,287 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~AgTransaccion();
 	
 };
@@ -362,8 +362,8 @@ class CamClave : public wxDialog
 		wxTextCtrl* TextoNuevaClave;
 		wxStaticText* m_staticText60;
 		wxTextCtrl* TextoRepetirClave;
-		wxButton* BotonAcepar;
-		wxButton* BotonCancelar;
+		wxBitmapButton* BotonAcepar;
+		wxBitmapButton* m_bpButton30;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAceparNuevaClave( wxCommandEvent& event ) { event.Skip(); }
@@ -372,7 +372,7 @@ class CamClave : public wxDialog
 	
 	public:
 		
-		CamClave( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 350,376 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		CamClave( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 339,331 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~CamClave();
 	
 };
@@ -397,8 +397,8 @@ class ModificarHabitacion : public wxDialog
 		wxStaticText* TextoPrecioActual;
 		wxStaticText* m_staticText29;
 		wxTextCtrl* textoNuevoPrecio;
-		wxButton* BotonAceptarModificar;
-		wxButton* BotonCancelarModificar;
+		wxBitmapButton* BotonAceptarModificar;
+		wxBitmapButton* BotonCancelarModificar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAceptar( wxCommandEvent& event ) { event.Skip(); }
@@ -422,8 +422,8 @@ class Alias : public wxDialog
 	protected:
 		wxStaticText* NuevoAlias;
 		wxTextCtrl* TextoNuevoAlias;
-		wxButton* BotonAceptarNuevoAlias;
-		wxButton* BotonCancelarNuevoAlias;
+		wxBitmapButton* BotonAceptarNuevoAlias;
+		wxBitmapButton* BotonCancelarNuevoAlias;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAceptarNuevoAlias( wxCommandEvent& event ) { event.Skip(); }
@@ -447,8 +447,8 @@ class CBU : public wxDialog
 	protected:
 		wxStaticText* NuevoCBU;
 		wxTextCtrl* TextoNuevoCBU;
-		wxButton* BotonAceptarNuevoCBU;
-		wxButton* BotonCancelarNuevoCBU;
+		wxBitmapButton* BotonAceptarNuevoCBU;
+		wxBitmapButton* BotonCancelarNuevoCBU;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonAceptarNuevoCBU( wxCommandEvent& event ) { event.Skip(); }
@@ -459,26 +459,6 @@ class CBU : public wxDialog
 		
 		CBU( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 411,166 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~CBU();
-	
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class MyDialog9
-///////////////////////////////////////////////////////////////////////////////
-class MyDialog9 : public wxDialog 
-{
-	private:
-	
-	protected:
-		wxDataViewListCtrl* m_dataViewListCtrl1;
-		wxButton* m_button33;
-		wxButton* m_button34;
-		wxButton* m_button35;
-	
-	public:
-		
-		MyDialog9( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 621,467 ), long style = wxDEFAULT_DIALOG_STYLE ); 
-		~MyDialog9();
 	
 };
 

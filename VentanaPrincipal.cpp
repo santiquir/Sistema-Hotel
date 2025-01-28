@@ -10,7 +10,6 @@
 VentanaPrincipal::VentanaPrincipal(GestionPersonas *m_agenda,GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones) : 
 	vPrincipal(nullptr),m_agenda(m_agenda),m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones){
 	this->SetFocus();
-	cout << m_agendaHabitaciones->habitacionesLibres() << " " << m_agendaHabitaciones->habitacionesOcupadas()<< endl;
 	CargarInformacion();
 }
 

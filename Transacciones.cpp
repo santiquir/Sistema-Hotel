@@ -34,7 +34,7 @@ long plata = 0;
 		ActividadReciente &h = m_transacciones->verHistorial(i);
 		if(h.verGP()) plata+= h.verMonto();
 		else plata -= h.verMonto();
-		string plata_str = to_string(plata);
+		string plata_str = FormatearNumero(plata);
 		DineroAcumulado->SetLabel(wxString(plata_str));
 		m_transacciones->Guardar();
 		
@@ -52,7 +52,7 @@ void Transacciones::refrescarGrilla(){
 		if(h.verGP() == true) gp = "+";
 		else gp = "-";
 		GrillaActividad->AppendRows();
-		GrillaActividad->SetCellValue(i,0,gp+to_string(h.verMonto()));
+		GrillaActividad->SetCellValue(i,0,gp+FormatearNumero(h.verMonto()));
 		GrillaActividad->SetCellValue(i,1,h.verMotivo());
 
 	}
@@ -113,4 +113,13 @@ void Transacciones::ClickDescargarHistorial( wxCommandEvent& event )  {
 	file.close();
 	wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
 }
+string Transacciones::FormatearNumero(long numero) {
+	std::string numeroStr = std::to_string(numero);
+	int n = numeroStr.length();
+	
 
+	for (int i = n - 3; i > 0; i -= 3) {
+		numeroStr.insert(i, ",");
+	}
+	return numeroStr;
+}
