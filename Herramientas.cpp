@@ -5,3 +5,4 @@ void ConvertirEnMinuscula(string &s) {
 	for (int i=0;i<c;i++)
 		s[i]=tolower(s[i]);
 }
+

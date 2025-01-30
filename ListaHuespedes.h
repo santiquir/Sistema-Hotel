@@ -2,6 +2,7 @@
 #define LISTAHUESPEDES_H
 #include "wxfb_project.h"
 #include "GestionPersona.h"
+#include "GestionCalendario.h"
 
 class ListaHuespedes : public listHuespedes {
 	
@@ -14,9 +15,9 @@ protected:
 	void ClickBotonEliminarHuesped( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHuesped( wxCommandEvent& event )  override;
 	vector<int> indices;
-	
+	GestionCalendario* calendario;
 public:
-	ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda);
+	ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, GestionCalendario *calendario);
 	~ListaHuespedes();
 	void refrescarGrilla();
 };

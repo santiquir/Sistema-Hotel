@@ -19,7 +19,7 @@ void AgregarHabitacion::ClickBotonAceptarHabitacion( wxCommandEvent& event )  {
 	TextoNumeroHab->GetValue().ToLong(&numero);
 	
 	
-	Habitacion h(tipo,precio,false,numero);
+	Habitacion h(tipo,precio,numero);
 	string errores = h.validarHabitacion();
 	if(errores.empty()){
 		m_agendaHabitaciones->agregarHabitacion(h);

@@ -4,10 +4,9 @@
 #include <iostream>
 using namespace std;
 
-Habitacion::Habitacion(string a_tipo,long a_precio,bool a_estado, long a_numero){
+Habitacion::Habitacion(string a_tipo,long a_precio, long a_numero){
     tipo = a_tipo;
     precio = a_precio;
-    estado = a_estado;
     numero = a_numero;
 }
 
@@ -17,21 +16,16 @@ bool Habitacion::operator<(const Habitacion& a) {
 
 int Habitacion::verNumero() const{return numero;}
 string Habitacion::verTipo() const{return tipo;}
-bool Habitacion::verEstado() const{return estado;}
 float Habitacion::verPrecio() const{return precio;}
 
 void Habitacion::actualizarNumero(int n) {numero = n;}
 void Habitacion::actualizarTipo(string t) {tipo = t;}
 void Habitacion::actualizarPrecio(float p) {precio = p;}
-void Habitacion::actualizarEstado(){
-    estado = !estado;
-}
 
 void Habitacion::GuardarEnBinario(ofstream &archivo) {
     habitacion_str reg;
     strcpy(reg.tipoStr, tipo.c_str());
     reg.precioStr = precio;
-    reg.estadoStr = estado;
     reg.numeroStr = numero;
     archivo.write((char*)(&reg), sizeof(reg));
 }
@@ -41,7 +35,6 @@ void Habitacion::LeerDesdeArchivo (ifstream &archivo) {
     archivo.read((char*)(&reg), sizeof(reg));
     tipo = reg.tipoStr;
     precio = reg.precioStr;
-    estado = reg.estadoStr;
     numero = reg.numeroStr;
 }
 

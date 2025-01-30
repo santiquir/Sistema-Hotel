@@ -45,9 +45,6 @@ void ModificarHabitaciones::ClickBotonAceptar( wxCommandEvent& event )  {
 	aModificar->actualizarNumero(nuevoNumero);
 	aModificar->actualizarPrecio(nuevoPrecio);
 	aModificar->actualizarTipo(nuevoTipo);
-	if (aModificar->verEstado() == true) {
-		aModificar->actualizarEstado();
-	}
 	
 	m_agendaHabitaciones->ordenarHabitaciones();
 	m_agendaHabitaciones->guardar();

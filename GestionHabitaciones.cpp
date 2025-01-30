@@ -46,56 +46,6 @@ void GestionHabitaciones::eliminarHabitacion(int i){
 	habitaciones.erase(habitaciones.begin()+i);
 }
 
-int GestionHabitaciones::habitacionesLibres(){
-	int aux = 0;
-	for(size_t i = 0; i < habitaciones.size();i++){
-		if(habitaciones[i].verEstado() == false){
-			aux++; 
-		}
-	}
-	return aux;
-}
-
-int GestionHabitaciones::habitacionesOcupadas(){
-	int aux = 0;
-	for(size_t i = 0; i < habitaciones.size();i++){
-		if(habitaciones[i].verEstado() == true){
-			aux++; 
-		}
-	}
-	return aux;
-}
-
-//"False" no pudo reservar, "True" reservo.
-bool GestionHabitaciones::reservar(int numero) {
-	for (size_t i = 0; i < habitaciones.size(); i++) {
-		if (habitaciones[i].verNumero() == numero) {
-			// Verifica si está ocupado
-			if (habitaciones[i].verEstado() == true) {
-				return false; // Ya está ocupado
-			}
-			// Cambiar el estado a ocupado
-			habitaciones[i].actualizarEstado();
-			return true;
-		}
-	}
-	return false; // No se encontró la habitación
-}
-
-//"true" quito la reserva, "false" no pudo quitar la reserva por x motivo.
-bool GestionHabitaciones::quitarReserva(int numero) {
-	for (size_t i = 0; i < habitaciones.size(); i++) {
-		if (habitaciones[i].verNumero() == numero) {
-			// Verificar si está ocupado
-			if (habitaciones[i].verEstado() == true) {
-				// Cambiar el estado a libre
-				habitaciones[i].actualizarEstado();
-				return true;
-			}
-		}
-	}
-	return false; // No se encontró la habitación o ya estaba libre
-}
 
 bool GestionHabitaciones::guardar() {
 	ofstream archivo(nombreArchivo.c_str(), ios::binary|ios::trunc);
@@ -113,7 +63,7 @@ Habitacion &GestionHabitaciones::operator[](int i){return habitaciones[i];}
 
 Habitacion &GestionHabitaciones::verHabitacion(int i){return habitaciones[i];}
 
-double GestionHabitaciones::dineroTotalGanado(){
+/*double GestionHabitaciones::dineroTotalGanado(){
 	double dinero = 0;
 	
 	for(size_t i = 0; i < habitaciones.size();i++){
@@ -123,5 +73,5 @@ double GestionHabitaciones::dineroTotalGanado(){
 	}
 	return dinero;
 }
-
+*/
 

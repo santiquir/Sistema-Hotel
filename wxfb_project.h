@@ -29,7 +29,6 @@
 #include <wx/datectrl.h>
 #include <wx/dateevt.h>
 #include <wx/choice.h>
-#include <wx/calctrl.h>
 #include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -50,10 +49,6 @@ class vPrincipal : public wxFrame
 		wxBitmapButton* BotonHuesped;
 		wxBitmapButton* BotonTransacciones;
 		wxStaticText* m_staticText63;
-		wxStaticText* TextoCantidadHuespedes;
-		wxStaticText* TextoCantidadHabitaciones;
-		wxStaticText* TextoCantidadLibres;
-		wxStaticText* TextoCantidadOcupadas;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonHabitacion( wxCommandEvent& event ) { event.Skip(); }
@@ -95,7 +90,6 @@ class listHabitaciones : public wxFrame
 		wxStaticBitmap* m_bitmap2;
 		wxChoice* SelectorHuesped;
 		wxBitmapButton* BotonReservar;
-		wxButton* m_button2;
 		wxBitmapButton* BotonQuitarReserva;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -110,7 +104,7 @@ class listHabitaciones : public wxFrame
 	
 	public:
 		
-		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 633,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 518,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHabitaciones();
 	
@@ -127,15 +121,18 @@ class Calendario : public wxDialog
 		wxStaticText* m_staticText66;
 		wxChoice* TextoNumeroHabReserva;
 		wxButton* BotonBuscarReservas;
-		wxCalendarCtrl* m_calendario;
+		wxGrid* m_calendario;
+		wxChoice* SelectorPersona;
+		wxButton* BotonOcupar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonBuscarReservas( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonOcupar( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
 		
-		Calendario( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 509,349 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		Calendario( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 534,384 ), long style = wxDEFAULT_DIALOG_STYLE ); 
 		~Calendario();
 	
 };

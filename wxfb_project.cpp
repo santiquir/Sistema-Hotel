@@ -96,40 +96,6 @@ vPrincipal::vPrincipal( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	bSizer84->Add( bSizer86, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 45 );
 	
-	wxBoxSizer* Informacion;
-	Informacion = new wxBoxSizer( wxHORIZONTAL );
-	
-	TextoCantidadHuespedes = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	TextoCantidadHuespedes->Wrap( -1 );
-	TextoCantidadHuespedes->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
-	TextoCantidadHuespedes->SetForegroundColour( wxColour( 65, 90, 119 ) );
-	
-	Informacion->Add( TextoCantidadHuespedes, 0, wxALL|wxEXPAND, 5 );
-	
-	TextoCantidadHabitaciones = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	TextoCantidadHabitaciones->Wrap( -1 );
-	TextoCantidadHabitaciones->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
-	TextoCantidadHabitaciones->SetForegroundColour( wxColour( 65, 90, 119 ) );
-	
-	Informacion->Add( TextoCantidadHabitaciones, 0, wxALL|wxEXPAND, 5 );
-	
-	TextoCantidadLibres = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	TextoCantidadLibres->Wrap( -1 );
-	TextoCantidadLibres->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
-	TextoCantidadLibres->SetForegroundColour( wxColour( 65, 90, 119 ) );
-	
-	Informacion->Add( TextoCantidadLibres, 0, wxALL|wxEXPAND, 5 );
-	
-	TextoCantidadOcupadas = new wxStaticText( this, wxID_ANY, wxT("MyLabel"), wxDefaultPosition, wxDefaultSize, 0 );
-	TextoCantidadOcupadas->Wrap( -1 );
-	TextoCantidadOcupadas->SetFont( wxFont( 10, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Book Antiqua") ) );
-	TextoCantidadOcupadas->SetForegroundColour( wxColour( 65, 90, 119 ) );
-	
-	Informacion->Add( TextoCantidadOcupadas, 0, wxALL|wxEXPAND, 5 );
-	
-	
-	bSizer84->Add( Informacion, 0, wxALIGN_RIGHT, 5 );
-	
 	
 	bSizer2->Add( bSizer84, 1, wxEXPAND, 5 );
 	
@@ -187,7 +153,7 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	GrillaHabitaciones = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
-	GrillaHabitaciones->CreateGrid( 0, 4 );
+	GrillaHabitaciones->CreateGrid( 0, 3 );
 	GrillaHabitaciones->EnableEditing( true );
 	GrillaHabitaciones->EnableGridLines( true );
 	GrillaHabitaciones->SetGridLineColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
@@ -195,17 +161,15 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	GrillaHabitaciones->SetMargins( 0, 0 );
 	
 	// Columns
-	GrillaHabitaciones->SetColSize( 0, 84 );
-	GrillaHabitaciones->SetColSize( 1, 152 );
+	GrillaHabitaciones->SetColSize( 0, 107 );
+	GrillaHabitaciones->SetColSize( 1, 173 );
 	GrillaHabitaciones->SetColSize( 2, 187 );
-	GrillaHabitaciones->SetColSize( 3, 143 );
 	GrillaHabitaciones->EnableDragColMove( false );
 	GrillaHabitaciones->EnableDragColSize( true );
 	GrillaHabitaciones->SetColLabelSize( 30 );
 	GrillaHabitaciones->SetColLabelValue( 0, wxT("Número") );
 	GrillaHabitaciones->SetColLabelValue( 1, wxT("Tipo") );
 	GrillaHabitaciones->SetColLabelValue( 2, wxT("Precio") );
-	GrillaHabitaciones->SetColLabelValue( 3, wxT("Estado") );
 	GrillaHabitaciones->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Rows
@@ -294,7 +258,7 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	FechaSalida = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
 	FechaSalida->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
 	
-	bSizer12->Add( FechaSalida, 0, wxALL|wxEXPAND, 5 );
+	bSizer12->Add( FechaSalida, 0, wxALL, 5 );
 	
 	
 	bSizer7->Add( bSizer12, 0, wxEXPAND, 5 );
@@ -322,9 +286,6 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	
 	BotonReservar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_reservar hover.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer86->Add( BotonReservar, 0, wxALL|wxEXPAND, 5 );
-	
-	m_button2 = new wxButton( this, wxID_ANY, wxT("Ocupar"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer86->Add( m_button2, 0, wxALL, 5 );
 	
 	BotonQuitarReserva = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_quitar-reserva.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
 	
@@ -398,13 +359,60 @@ Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxBoxSizer* bSizer87;
 	bSizer87 = new wxBoxSizer( wxVERTICAL );
 	
-	m_calendario = new wxCalendarCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize( 400,300 ), wxCAL_SHOW_HOLIDAYS );
-	m_calendario->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	m_calendario = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
-	bSizer87->Add( m_calendario, 1, wxALL|wxEXPAND, 5 );
+	// Grid
+	m_calendario->CreateGrid( 0, 3 );
+	m_calendario->EnableEditing( true );
+	m_calendario->EnableGridLines( true );
+	m_calendario->EnableDragGridSize( false );
+	m_calendario->SetMargins( 0, 0 );
+	
+	// Columns
+	m_calendario->SetColSize( 0, 105 );
+	m_calendario->SetColSize( 1, 125 );
+	m_calendario->SetColSize( 2, 187 );
+	m_calendario->EnableDragColMove( false );
+	m_calendario->EnableDragColSize( true );
+	m_calendario->SetColLabelSize( 30 );
+	m_calendario->SetColLabelValue( 0, wxT("Entrada") );
+	m_calendario->SetColLabelValue( 1, wxT("Salida") );
+	m_calendario->SetColLabelValue( 2, wxT("Persona") );
+	m_calendario->SetColLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+	
+	// Rows
+	m_calendario->EnableDragRowSize( true );
+	m_calendario->SetRowLabelSize( 0 );
+	m_calendario->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+	
+	// Label Appearance
+	m_calendario->SetLabelBackgroundColour( wxColour( 13, 27, 42 ) );
+	m_calendario->SetLabelFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_calendario->SetLabelTextColour( wxSystemSettings::GetColour( wxSYS_COLOUR_HIGHLIGHTTEXT ) );
+	
+	// Cell Defaults
+	m_calendario->SetDefaultCellFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_calendario->SetDefaultCellAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
+	m_calendario->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
+	bSizer87->Add( m_calendario, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
 	bSizer84->Add( bSizer87, 1, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer88;
+	bSizer88 = new wxBoxSizer( wxHORIZONTAL );
+	
+	wxArrayString SelectorPersonaChoices;
+	SelectorPersona = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, SelectorPersonaChoices, 0 );
+	SelectorPersona->SetSelection( 0 );
+	bSizer88->Add( SelectorPersona, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	BotonOcupar = new wxButton( this, wxID_ANY, wxT("Ocupar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer88->Add( BotonOcupar, 0, wxALL, 5 );
+	
+	
+	bSizer84->Add( bSizer88, 0, wxEXPAND, 5 );
 	
 	
 	this->SetSizer( bSizer84 );
@@ -414,12 +422,14 @@ Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	// Connect Events
 	BotonBuscarReservas->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonBuscarReservas ), NULL, this );
+	BotonOcupar->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonOcupar ), NULL, this );
 }
 
 Calendario::~Calendario()
 {
 	// Disconnect Events
 	BotonBuscarReservas->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonBuscarReservas ), NULL, this );
+	BotonOcupar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( Calendario::ClickBotonOcupar ), NULL, this );
 	
 }
 
@@ -581,7 +591,7 @@ listHuespedes::listHuespedes( wxWindow* parent, wxWindowID id, const wxString& t
 	// Cell Defaults
 	GrillaHuespedes->SetDefaultCellFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
 	GrillaHuespedes->SetDefaultCellAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
-	bSizer20->Add( GrillaHuespedes, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer20->Add( GrillaHuespedes, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	
 	bSizer18->Add( bSizer20, 1, wxEXPAND, 5 );

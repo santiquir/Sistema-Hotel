@@ -29,7 +29,7 @@ void Transacciones::actualizarDatos(){
 	LabelAlias->SetLabel(wxString(al));
 	LabelCBU->SetLabel(wxString(str_c));
 	
-long plata = 0;
+	long plata = 0;
 	for(int i = 0; i < m_transacciones->verCantidadHistorial();i++){
 		ActividadReciente &h = m_transacciones->verHistorial(i);
 		if(h.verGP()) plata+= h.verMonto();
@@ -54,10 +54,12 @@ void Transacciones::refrescarGrilla(){
 		GrillaActividad->AppendRows();
 		GrillaActividad->SetCellValue(i,0,gp+FormatearNumero(h.verMonto()));
 		GrillaActividad->SetCellValue(i,1,h.verMotivo());
-
+		
 	}
 	actualizarDatos();
 }
+
+
 
 void Transacciones::actualizarDatosHabitaciones(){
 	for(int i = 0; i < m_agendaHabitaciones->verCantidadHabitaciones();i++){
@@ -113,7 +115,8 @@ void Transacciones::ClickDescargarHistorial( wxCommandEvent& event )  {
 	file.close();
 	wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
 }
-std::string Transacciones::FormatearNumero(long numero) {
+
+string Transacciones::FormatearNumero(long numero) {
 	std::string numeroStr = std::to_string(numero); 
 	int n = numeroStr.length();
 	
@@ -123,4 +126,3 @@ std::string Transacciones::FormatearNumero(long numero) {
 	}
 	return numeroStr;
 }
-

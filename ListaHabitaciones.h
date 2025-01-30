@@ -21,11 +21,11 @@ protected:
 	GestionPersonas *m_agenda;
 	GestionCalendario *calendario;
 	vector<int> indices;
+	string FormatearNumero(long numero);
 	void ClickBotonBuscarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonEliminarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonReservar( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHabitacion( wxCommandEvent& event )  override;
-	string FormatearNumero(long numero);
 	
 	
 public:

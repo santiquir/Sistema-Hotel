@@ -1,28 +1,21 @@
 #include "GestionCalendario.h"
 #include <wx/msgdlg.h>
-#include <algorithm> // Para std::remove_if
-#include <stdexcept> // Para std::runtime_error
-#include <fstream>   // Para std::ifstream y std::ofstream
+#include <algorithm> 
+#include <stdexcept> 
+#include <fstream>   
 #include <wx/datetime.h>
 
 using namespace std;
 
-GestionCalendario::GestionCalendario(string a_archivos)
-	: nombreArchivos(a_archivos) {
-	// Constructor
+GestionCalendario::GestionCalendario(string a_archivos){
+	nombreArchivos = a_archivos;
+	LeerDesdeArchivo();
 }
 
-void GestionCalendario::AgregarReserva(const wxDateTime &fechaEntrada, const wxDateTime &fechaSalida, long numeroHabitacion) {
+void GestionCalendario::AgregarReserva(const wxDateTime &fechaEntrada, const wxDateTime &fechaSalida,
+		long numeroHabitacion) {
+	
 	auto& reservas = reservasPorHabitacion[numeroHabitacion].reservas;
-	
-	// Validar que no se solapen las fechas
-	for (const auto& reserva : reservas) {
-		if (!(fechaSalida <= reserva.fechaEntrada || fechaEntrada >= reserva.fechaSalida)) {
-			wxMessageBox("El rango de fechas se superpone con otra reserva.", "Error", wxICON_ERROR);
-			return;
-		}
-	}
-	
 	Reserva nuevaReserva = {fechaEntrada, fechaSalida};
 	reservas.push_back(nuevaReserva);
 }
@@ -40,7 +33,8 @@ void GestionCalendario::QuitarReserva(const wxDateTime &fechaEntrada, long numer
 	wxMessageBox("La fecha de entrada ingresada no existe.", "Error", wxICON_ERROR);
 }
 
-void GestionCalendario::ModificarReserva(const wxDateTime &fechaEntradaAntigua, const wxDateTime &fechaEntradaNueva, const wxDateTime &fechaSalidaNueva ,long numeroHabitacion) {
+void GestionCalendario::ModificarReserva(const wxDateTime &fechaEntradaAntigua, const wxDateTime
+		&fechaEntradaNueva, const wxDateTime &fechaSalidaNueva,long numeroHabitacion) {
 	auto& reservas = reservasPorHabitacion[numeroHabitacion].reservas;
 	
 	for(auto it = reservas.begin(); it != reservas.end();){
@@ -69,7 +63,10 @@ vector<Reserva> GestionCalendario::ObtenerReservas(long numeroHabitacion) {
 	return reservasPorHabitacion[numeroHabitacion].reservas;
 }
 
+
 void GestionCalendario::GuardarEnArchivo() {
+	cout << "Guardando en el archivo: " << nombreArchivos << endl;
+	
 	ofstream archivo(nombreArchivos, ios::binary);
 	if (!archivo) {
 		throw runtime_error("No se pudo abrir el archivo para guardar el calendario");
@@ -77,6 +74,7 @@ void GestionCalendario::GuardarEnArchivo() {
 	
 	// Guardar el número de habitaciones
 	size_t numHabitaciones = reservasPorHabitacion.size();
+	cout << "Número de habitaciones: " << numHabitaciones << endl;
 	archivo.write(reinterpret_cast<const char*>(&numHabitaciones), sizeof(numHabitaciones));
 	
 	for (const auto& par : reservasPorHabitacion) {
@@ -95,19 +93,31 @@ void GestionCalendario::GuardarEnArchivo() {
 			long fechaEntradaEpoch = reserva.fechaEntrada.GetTicks();
 			long fechaSalidaEpoch = reserva.fechaSalida.GetTicks();
 			
-			archivo.write(reinterpret_cast<const char*>(&fechaEntradaEpoch), sizeof(fechaEntradaEpoch));
-			archivo.write(reinterpret_cast<const char*>(&fechaSalidaEpoch), sizeof(fechaSalidaEpoch));
+			cout << "Fecha de entrada: " << fechaEntradaEpoch << ", Fecha de salida: " << fechaSalidaEpoch << endl;
+			
+			if (!archivo.write(reinterpret_cast<const char*>(&fechaEntradaEpoch), sizeof(fechaEntradaEpoch))) {
+				throw runtime_error("Error al escribir la fecha de entrada en el archivo");
+			}
+			if (!archivo.write(reinterpret_cast<const char*>(&fechaSalidaEpoch), sizeof(fechaSalidaEpoch))) {
+				throw runtime_error("Error al escribir la fecha de salida en el archivo");
+			}
 		}
 	}
 	
 	archivo.close();
+	cout << "Datos guardados correctamente." << endl;
 }
-
 
 void GestionCalendario::LeerDesdeArchivo() {
 	ifstream archivo(nombreArchivos, ios::binary);
 	if (!archivo) {
-		throw runtime_error("No se pudo abrir el archivo para leer el calendario");
+		// Si el archivo no existe, crearlo
+		ofstream nuevoArchivo(nombreArchivos, ios::binary);
+		if (!nuevoArchivo) {
+			throw runtime_error("No se pudo crear el archivo para leer el calendario");
+		}
+		nuevoArchivo.close();
+		return;
 	}
 	
 	// Leer el número de habitaciones
@@ -159,4 +169,8 @@ void GestionCalendario::LeerDesdeArchivo() {
 	}
 	
 	archivo.close();
+}
+
+int GestionCalendario::cantidadReservasHabitacion(long numeroHabitacion){
+	return reservasPorHabitacion[numeroHabitacion].reservas.size();
 }

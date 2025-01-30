@@ -4,9 +4,9 @@
 #include <wx/msgdlg.h>
 #include "ModificarHuespedes.h"
 #include "string_conv.h"
+#include <wx/datetime.h>
 
-ListaHuespedes::ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda) : listHuespedes(parent), m_agenda(m_agenda)
-{
+ListaHuespedes::ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, GestionCalendario *calendario) : listHuespedes(parent), m_agenda(m_agenda), calendario(calendario){
 	refrescarGrilla();
 
 }
@@ -77,6 +77,15 @@ void ListaHuespedes::ClickBotonEliminarHuesped( wxCommandEvent& event )  {
 	int x = wxMessageBox("Estas seguro?", "Advertecia" ,wxYES_NO|wxICON_QUESTION);
 	if(x==wxYES){
 		int ind = indices[f];
+		
+		//Borrar posibles Reservas
+		Persona *aModificar = &m_agenda->verPersona(ind);
+		pair<wxDateTime, wxDateTime> x = aModificar->verFechaReserva();
+		string aux = aModificar->verHab();
+		long numero = stol(aux);
+		calendario->QuitarReserva(x.first,numero);
+		
+		//Eliminar Persona
 		m_agenda->eliminarPersona(ind);	
 		indices.erase(indices.begin()+f);
 		m_agenda->Guardar();

@@ -1,11 +1,19 @@
 #include "CalendarioHabitaciones.h"
 #include <wx/msgdlg.h>
+#include <wx/calctrl.h>
+#include <wx/log.h>
+#include "string_conv.h"
+
+#include <sstream>
+using namespace std;
 
 CalendarioHabitaciones::CalendarioHabitaciones(wxWindow *parent, GestionCalendario *calendario,
-		GestionHabitaciones *m_agendaHabitaciones) : Calendario(parent), calendario(calendario),
-		m_agendaHabitaciones(m_agendaHabitaciones){
+		GestionHabitaciones *m_agendaHabitaciones, GestionPersonas *m_agenda, GestionTransacciones *m_transacciones) :
+			Calendario(parent), calendario(calendario),m_agendaHabitaciones(m_agendaHabitaciones), m_agenda(m_agenda),
+				m_transacciones(m_transacciones){
 		
 	refrescarSelector();
+	
 }
 
 CalendarioHabitaciones::~CalendarioHabitaciones() {
@@ -20,78 +28,176 @@ void CalendarioHabitaciones::refrescarSelector(){
 		Habitacion &h = m_agendaHabitaciones->verHabitacion(i);
 		TextoNumeroHabReserva->Append(wxString::Format("%ld", h.verNumero()));
 	}
-}
-
-void CalendarioHabitaciones::refrescarCalendario() {
-	// Limpiar las marcas anteriores en el calendario
-	wxDateTime fechaActual = m_calendario->GetDate();
-	int mesVisible = fechaActual.GetMonth();
-	int anioVisible = fechaActual.GetYear();
 	
-	// Obtener el primer y último día del mes visible
-	wxDateTime primerDia;
-	primerDia.Set(1, static_cast<wxDateTime::Month>(mesVisible), anioVisible);
-	wxDateTime ultimoDia = primerDia;
-	ultimoDia.SetToLastMonthDay();
-	int diasEnMes = ultimoDia.GetDay();
-	
-	for (int dia = 1; dia <= diasEnMes; ++dia) {
-		wxCalendarDateAttr *attr = m_calendario->GetAttr(dia);
-		if (attr) {
-			delete attr; // Liberar atributo existente
-		}
-		m_calendario->SetAttr(dia, nullptr); // Limpiar atributo personalizado
+	SelectorPersona->Clear();
+	for (int i = 0; i < m_agenda->CantidadDatos();i++){
+		Persona &p = m_agenda->verPersona(i);
+		SelectorPersona->Append(p.verApellido() + ", " + p.verNombre());
 	}
 	
-	// Validar selección de habitación
-	int seleccion = TextoNumeroHabReserva->GetSelection();
-	if (seleccion == wxNOT_FOUND) {
-		wxMessageBox("Por favor, seleccione un número de habitación válido.", "Error", wxICON_ERROR);
+}
+
+
+void CalendarioHabitaciones::refrescarCalendario(){
+	long numeroHabitacion;
+	
+	
+	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numeroHabitacion)) {
+		cout << "Error: Número de habitación inválido." << endl;
 		return;
+	}
+	
+	
+	const auto& reservas = calendario->ObtenerReservas(numeroHabitacion);
+	int cant = calendario->cantidadReservasHabitacion(numeroHabitacion);
+	
+	if(m_calendario->GetNumberRows() > 0)
+		m_calendario->DeleteRows(0, m_calendario->GetNumberRows());
+	
+	if (cant == 0 || reservas.empty()) {
+		cout << "No hay reservas para la habitación " << numeroHabitacion << endl;
+		return;
+	}
+	
+	int cont = 0;
+	for (const auto& reserva : reservas){
+		string entrada, salida, nombre; bool est = false;
+		
+		entrada = to_string(reserva.fechaEntrada.GetDay()) + "/"  
+			+ to_string((reserva.fechaEntrada.GetMonth() + 1)) + "/"  
+			+ to_string(reserva.fechaEntrada.GetYear());
+		
+		salida = to_string(reserva.fechaSalida.GetDay()) + "/"  
+			+ to_string((reserva.fechaSalida.GetMonth() + 1)) + "/"  
+			+ to_string(reserva.fechaSalida.GetYear());
+		
+		for(int i = 0; i < m_agenda->CantidadDatos();i++){
+			Persona &p = m_agenda->verPersona(i);
+			pair<wxDateTime,wxDateTime> x = p.verFechaReserva();
+			if(reserva.fechaEntrada == x.first && reserva.fechaSalida == x.second){
+				nombre = p.verApellido() + ", " + p.verNombre();
+				est = p.verEstado();
+				break;
+			}
+		}
+		
+		if(calendario->cantidadReservasHabitacion(numeroHabitacion) > m_calendario->GetNumberRows()){
+			m_calendario->AppendRows();
+			
+			m_calendario->SetCellValue(cont,0,entrada);
+			m_calendario->SetCellValue(cont,1,salida);
+			m_calendario->SetCellValue(cont,2,nombre);
+	
+		
+			if(est){
+				m_calendario->SetCellBackgroundColour(cont,0,wxColour(150,230,150));
+				m_calendario->SetCellBackgroundColour(cont,1,wxColour(150,230,150));
+				m_calendario->SetCellBackgroundColour(cont,2,wxColour(150,230,150));
+			}
+			else{
+				m_calendario->SetCellBackgroundColour(cont,0,wxColour(255,240,150));
+				m_calendario->SetCellBackgroundColour(cont,1,wxColour(255,240,150));
+				m_calendario->SetCellBackgroundColour(cont,2,wxColour(255,240,150));
+			}
+		
+			cont++;
+	
+		}
+	}	
+}
+
+void CalendarioHabitaciones::ClickBotonBuscarReservas( wxCommandEvent& event )  {
+	long numeroHabitacion;
+	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numeroHabitacion)) {
+		cout << "Error: Número de habitación inválido." << endl;
+		return;
+	}
+	
+	const auto& reservas = calendario->ObtenerReservas(numeroHabitacion);
+	
+	if(reservas.empty() && m_calendario->GetNumberRows() == 0)
+		wxMessageBox("La habitacion no presenta ninguna reserva","Error",wxICON_INFORMATION);
+	
+	if(reservas.empty() && m_calendario->GetNumberRows()>0){
+		wxMessageBox("La habitacion no presenta ninguna reserva","Error",wxICON_INFORMATION);
+		m_calendario->DeleteRows(0,m_calendario->GetNumberRows());
+	}
+		
+	else if(m_calendario->GetNumberRows() > 0){
+		m_calendario->DeleteRows(0,m_calendario->GetNumberRows());
+		refrescarCalendario();
+	}
+	refrescarCalendario();
+}
+
+void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
+	if(SelectorPersona->GetSelection() == wxNOT_FOUND ){
+		wxMessageBox("Seleccione a una persona para continuar","Error",wxICON_ERROR);
+		return;
+	}
+	
+	string nombreCompleto = wx_to_std(SelectorPersona->GetStringSelection());
+	string apellido, nombre;
+	size_t pos = nombreCompleto.find(',');
+	if (pos != string::npos) {
+		apellido = nombreCompleto.substr(0, pos); 
+		nombre = nombreCompleto.substr(pos + 2);
 	}
 	
 	long numeroHabitacion;
-	wxString habitacionStr = TextoNumeroHabReserva->GetString(seleccion);
-	if (!habitacionStr.ToLong(&numeroHabitacion)) {
-		wxMessageBox("Por favor, ingrese un número de habitación válido.", "Error", wxICON_ERROR);
+	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numeroHabitacion)) {
+		cout << "Error: Número de habitación inválido." << endl;
 		return;
 	}
 	
-	const auto &reservas = calendario->ObtenerReservas(numeroHabitacion);
+	bool yaOcupado = false;
+	for(int i = 0; i < m_agenda->CantidadDatos();i++){
+		Persona &p = m_agenda->verPersona(i);
+		if(p.verHab() == to_string(numeroHabitacion)){
+			if(p.verEstado()){
+				yaOcupado = true;
+			}
+		}
+	}
 	
-	if (reservas.empty()) {
-		wxMessageBox("No hay reservas para la habitación especificada.", "Información", wxICON_INFORMATION);
+	if(yaOcupado){
+		wxMessageBox("Habitacion ocupada","Error",wxICON_ERROR);
 		return;
 	}
 	
-	for (const auto &reserva : reservas) {
-		if (!reserva.fechaEntrada.IsValid() || !reserva.fechaSalida.IsValid()) {
-			wxMessageBox("Una reserva contiene una fecha inválida.", "Error", wxICON_ERROR);
-			continue;
-		}
-		
-		if (reserva.fechaEntrada.GetMonth() == mesVisible &&
-			reserva.fechaEntrada.GetYear() == anioVisible) {
-			int diaEntrada = reserva.fechaEntrada.GetDay();
-			wxCalendarDateAttr *entradaAttr = new wxCalendarDateAttr(wxColour(255, 0, 0));
-			wxCalendarDateAttr *prevAttr = m_calendario->GetAttr(diaEntrada);
-			if (prevAttr) delete prevAttr;
-			m_calendario->SetAttr(diaEntrada, entradaAttr);
-		}
-		
-		if (reserva.fechaSalida.GetMonth() == mesVisible &&
-			reserva.fechaSalida.GetYear() == anioVisible) {
-			int diaSalida = reserva.fechaSalida.GetDay();
-			wxCalendarDateAttr *salidaAttr = new wxCalendarDateAttr(wxColour(0, 255, 0));
-			wxCalendarDateAttr *prevAttr = m_calendario->GetAttr(diaSalida);
-			if (prevAttr) delete prevAttr;
-			m_calendario->SetAttr(diaSalida, salidaAttr);
+	for(int i = 0; i < m_agenda->CantidadDatos();i++){
+		Persona &p = m_agenda->verPersona(i);
+		if(p.verNombre() == nombre && p.verApellido() == apellido){
+			if(p.verEstado()){
+				wxMessageBox("Este huesped ya esta ocupando la habitacion","Error",wxICON_ERROR);
+				return;
+			}else{
+				p.modificarEstado();
+			}
 		}
 	}
-}
-
-
-void CalendarioHabitaciones::ClickBotonBuscarReservas( wxCommandEvent& event )  {
+	
+	long numero;
+	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numero)) {
+		cout << "Error: Número de habitación inválido." << endl;
+		return;
+	}
+	
+	long monto = 0, monto_total = 0;
+	for (int i = 0; i < m_agendaHabitaciones->verCantidadHabitaciones(); i++) {
+		if (m_agendaHabitaciones->verHabitacion(i).verNumero() == numero) {
+			Habitacion &hab = m_agendaHabitaciones->verHabitacion(i);
+			monto = hab.verPrecio();
+			monto_total = monto * 0.7;
+			break;
+		}
+	}
+	string motivo = "Pago total de la habitacion " + to_string(numero) ;
+	m_transacciones->agregarHistorial(motivo,monto_total,true);
+	m_transacciones->GuardarActividad();
+	
+	m_agenda->Guardar();
 	refrescarCalendario();
+	wxMessageBox("Disfrute del opedaje","Excelente",wxICON_INFORMATION);
 }
 

@@ -13,7 +13,7 @@ VentanaPrincipal::VentanaPrincipal(GestionPersonas *m_agenda,GestionHabitaciones
 		calendario(calendario){
 	
 	this->SetFocus();
-	CargarInformacion();
+	//CargarInformacion();
 }
 
 VentanaPrincipal::~VentanaPrincipal() {
@@ -26,7 +26,7 @@ void VentanaPrincipal::ClickBotonHabitacion( wxCommandEvent& event )  {
 }
 
 void VentanaPrincipal::ClickBotonHuesped( wxCommandEvent& event )  {
-	ListaHuespedes *win = new ListaHuespedes(this,m_agenda);
+	ListaHuespedes *win = new ListaHuespedes(this,m_agenda, calendario);
 	win -> Show();
 }
 
@@ -35,7 +35,7 @@ void VentanaPrincipal::ClickBotonTransacciones( wxCommandEvent& event )  {
 	win -> Show();
 }
 
-void VentanaPrincipal::CargarInformacion(){
+/*void VentanaPrincipal::CargarInformacion(){
 	
 	int cantidadHabitaciones = m_agendaHabitaciones->verCantidadHabitaciones();
 	wxString texto = wxString::Format("Habitaciones: %d", cantidadHabitaciones);
@@ -52,4 +52,4 @@ void VentanaPrincipal::CargarInformacion(){
 	int cantidadLibres= m_agendaHabitaciones->habitacionesLibres();
 	texto = wxString::Format("Libres: %d", cantidadLibres);
 	TextoCantidadLibres->SetLabel(texto);
-}
+}*/

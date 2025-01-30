@@ -29,10 +29,11 @@ public:
 	
 	void AgregarReserva(const wxDateTime &fechaEntrada, const wxDateTime &fechaSalida, long numeroHabitacion); 
 	void QuitarReserva(const wxDateTime &fechaEntrada, long numeroHabitacion);  
-	void ModificarReserva(const wxDateTime &fechaEntradaAntigua, const wxDateTime &fechaEntradaNueva, const wxDateTime &fechaSalidaNueva ,long numeroHabitacion); 
+	void ModificarReserva(const wxDateTime &fechaEntradaAntigua, const wxDateTime &fechaEntradaNueva, const wxDateTime &fechaSalidaNueva,long numeroHabitacion); 
 	bool BuscarReserva(const wxDateTime &fechaEntrada, const wxDateTime &fechaSalida, long numeroHabitacion); 
 	vector<Reserva> ObtenerReservas(long numeroHabitacion); 
 	void FiltrarPorHabitacion(long numeroHabitacion);
+	int cantidadReservasHabitacion(long numeroHabitacion);
 	
 	void GuardarEnArchivo();
 	void LeerDesdeArchivo();

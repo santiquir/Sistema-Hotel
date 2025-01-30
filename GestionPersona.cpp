@@ -2,19 +2,45 @@
 #include <fstream>
 #include <algorithm>
 
-GestionPersonas::GestionPersonas(string a_nombreArchivo){
-    nombreArchivo = a_nombreArchivo;
-    ifstream archivo(nombreArchivo.c_str(),ios::binary | ios::ate);
-    if(archivo.is_open()){    
-        int tamanio_archivo = archivo.tellg();
-		int cantidad_personas = tamanio_archivo/sizeof(reg_persona);
-		personas.resize(cantidad_personas);
-		archivo.seekg(0,std::ios::beg);
-		for (int i=0;i<cantidad_personas;i++)
-			personas[i].LeerDesdeBinario(archivo);
-		archivo.close();
-    }
+GestionPersonas::GestionPersonas(string a_nombreArchivo) {
+	nombreArchivo = a_nombreArchivo;
+	ifstream archivo(nombreArchivo, ios::binary | ios::ate);  // 'ate' mueve el puntero al final para tellg()
+	if (!archivo) {
+		// Si el archivo no existe, crearlo
+		ofstream nuevoArchivo(nombreArchivo, ios::binary);
+		if (!nuevoArchivo) {
+			throw runtime_error("No se pudo crear el archivo para leer el calendario");
+		}
+		nuevoArchivo.close();
+		return;
+	}
+	if (!archivo) {
+		cerr << "Error: No se pudo abrir el archivo binario de personas: " << nombreArchivo << endl;
+		return;
+	}
+	
+	streamsize tamanio_archivo = archivo.tellg();  // Obtener tamaño del archivo
+	archivo.seekg(0, ios::beg);  // Volver al inicio para lectura
+	
+	if (tamanio_archivo % sizeof(reg_persona) != 0) {
+		cerr << "Error: Archivo corrupto. Tamaño inesperado." << endl;
+		return;
+	}
+	
+	int cantidad_personas = tamanio_archivo / sizeof(reg_persona);
+	personas.resize(cantidad_personas);
+	
+	for (int i = 0; i < cantidad_personas; i++) {
+		personas[i].LeerDesdeBinario(archivo);
+		if (!archivo.good()) {
+			cerr << "Error: Fallo al leer datos de persona en índice " << i << endl;
+			break;
+		}
+	}
+	
+	archivo.close();
 }
+
 
 bool GestionPersonas::Guardar() {
     ofstream archivo(nombreArchivo.c_str(), ios::binary|ios::trunc);
