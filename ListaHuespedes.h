@@ -11,11 +11,12 @@ private:
 protected:
 	void ClickBotonModificarHuesped( wxCommandEvent& event )  override;
 	GestionPersonas* m_agenda;
+	GestionCalendario *calendario;
 	void ClickBotonBuscarHuesped( wxCommandEvent& event )  override;
 	void ClickBotonEliminarHuesped( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHuesped( wxCommandEvent& event )  override;
 	vector<int> indices;
-	GestionCalendario* calendario;
+	
 public:
 	ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, GestionCalendario *calendario);
 	~ListaHuespedes();

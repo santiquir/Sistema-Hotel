@@ -17,7 +17,7 @@ private:
 	string archivoDatos, archivoActividad;
 	string alias, contrasena;
 	long dinero, CBU;
-	vector<ActividadReciente> v;
+	vector<ActividadReciente> v;vector<ActividadReciente> v_filtro;
 public:
 	GestionTransacciones(string datos, string actividad);
 	long verCBU();
@@ -29,9 +29,13 @@ public:
 	void cambiarAlias(string nuevo);
 	void cambiarContrasena(string nuevo);
 	void actualizarDinero(bool x, long monto);
+	void agregarPersonaFiltro(ActividadReciente a);
+	void resetFiltro();
+	int verCantidadFiltro();
+	ActividadReciente verHistorialFiltro(int i);
 	
 	bool Guardar();
-	void agregarHistorial(string motivo, long monto, bool gp);
+	void agregarHistorial(string motivo, long monto, bool gp,wxDateTime a);
 	int verCantidadHistorial();
 	ActividadReciente &operator[](int i);
 	ActividadReciente &verHistorial(int i);

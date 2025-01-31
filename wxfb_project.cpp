@@ -193,7 +193,9 @@ listHabitaciones::listHabitaciones( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer10;
 	bSizer10 = new wxBoxSizer( wxHORIZONTAL );
 	
-	BotonCalendario = new wxButton( this, wxID_ANY, wxT("Calendario"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonCalendario = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_calendario.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonCalendario->SetBitmapHover( wxBitmap( wxT("Imagenes/button_calendario (1).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer10->Add( BotonCalendario, 0, wxALL, 5 );
 	
 	BotonAgregarHabitacion = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_agregar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
@@ -335,9 +337,9 @@ Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxBoxSizer* bSizer85;
 	bSizer85 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText66 = new wxStaticText( this, wxID_ANY, wxT("Numero de habitacion"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText66 = new wxStaticText( this, wxID_ANY, wxT("N°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText66->Wrap( -1 );
-	m_staticText66->SetFont( wxFont( 11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
+	m_staticText66->SetFont( wxFont( 15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Impact") ) );
 	
 	bSizer85->Add( m_staticText66, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
@@ -348,9 +350,9 @@ Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, 
 	
 	bSizer85->Add( TextoNumeroHabReserva, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	BotonBuscarReservas = new wxButton( this, wxID_ANY, wxT("Buscar"), wxDefaultPosition, wxDefaultSize, 0 );
-	BotonBuscarReservas->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	BotonBuscarReservas = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_buscar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
 	
+	BotonBuscarReservas->SetBitmapHover( wxBitmap( wxT("Imagenes/button_buscar hover.png"), wxBITMAP_TYPE_ANY ) );
 	bSizer85->Add( BotonBuscarReservas, 0, wxALL, 5 );
 	
 	
@@ -406,9 +408,13 @@ Calendario::Calendario( wxWindow* parent, wxWindowID id, const wxString& title, 
 	wxArrayString SelectorPersonaChoices;
 	SelectorPersona = new wxChoice( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, SelectorPersonaChoices, 0 );
 	SelectorPersona->SetSelection( 0 );
+	SelectorPersona->SetFont( wxFont( 10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial Rounded MT Bold") ) );
+	
 	bSizer88->Add( SelectorPersona, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	BotonOcupar = new wxButton( this, wxID_ANY, wxT("Ocupar"), wxDefaultPosition, wxDefaultSize, 0 );
+	BotonOcupar = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("Imagenes/button_ocupar.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
+	
+	BotonOcupar->SetBitmapHover( wxBitmap( wxT("Imagenes/button_ocupar (1).png"), wxBITMAP_TYPE_ANY ) );
 	bSizer88->Add( BotonOcupar, 0, wxALL, 5 );
 	
 	
@@ -1190,6 +1196,31 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer42;
 	bSizer42 = new wxBoxSizer( wxVERTICAL );
 	
+	wxBoxSizer* bSizer88;
+	bSizer88 = new wxBoxSizer( wxHORIZONTAL );
+	
+	PanelFecha = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer89;
+	bSizer89 = new wxBoxSizer( wxHORIZONTAL );
+	
+	wxString SeleccionRapidaChoices[] = { wxT("hoy"), wxT("ayer"), wxT("3 dias"), wxT("1 semana"), wxT("1 mes"), wxT("7 meses"), wxT("Todo") };
+	int SeleccionRapidaNChoices = sizeof( SeleccionRapidaChoices ) / sizeof( wxString );
+	SeleccionRapida = new wxChoice( PanelFecha, wxID_ANY, wxDefaultPosition, wxDefaultSize, SeleccionRapidaNChoices, SeleccionRapidaChoices, 0 );
+	SeleccionRapida->SetSelection( 0 );
+	bSizer89->Add( SeleccionRapida, 0, wxALL, 5 );
+	
+	BotonFiltrar = new wxButton( PanelFecha, wxID_ANY, wxT("filtrar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer89->Add( BotonFiltrar, 0, wxALL, 5 );
+	
+	
+	PanelFecha->SetSizer( bSizer89 );
+	PanelFecha->Layout();
+	bSizer89->Fit( PanelFecha );
+	bSizer88->Add( PanelFecha, 1, wxALL|wxEXPAND, 5 );
+	
+	
+	bSizer42->Add( bSizer88, 1, wxEXPAND, 5 );
+	
 	GrillaActividad = new wxGrid( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
 	
 	// Grid
@@ -1233,6 +1264,7 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	BotonCambiarCBU->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonCambiarCBU ), NULL, this );
 	DescargarHistorial->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickDescargarHistorial ), NULL, this );
 	BotonAgregarTransaccion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonAgregarTransaccion ), NULL, this );
+	BotonFiltrar->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonFiltrar ), NULL, this );
 }
 
 mTransacciones::~mTransacciones()
@@ -1242,6 +1274,7 @@ mTransacciones::~mTransacciones()
 	BotonCambiarCBU->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonCambiarCBU ), NULL, this );
 	DescargarHistorial->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickDescargarHistorial ), NULL, this );
 	BotonAgregarTransaccion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonAgregarTransaccion ), NULL, this );
+	BotonFiltrar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonFiltrar ), NULL, this );
 	
 }
 

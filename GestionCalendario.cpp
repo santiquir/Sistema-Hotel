@@ -65,7 +65,6 @@ vector<Reserva> GestionCalendario::ObtenerReservas(long numeroHabitacion) {
 
 
 void GestionCalendario::GuardarEnArchivo() {
-	cout << "Guardando en el archivo: " << nombreArchivos << endl;
 	
 	ofstream archivo(nombreArchivos, ios::binary);
 	if (!archivo) {
@@ -74,7 +73,6 @@ void GestionCalendario::GuardarEnArchivo() {
 	
 	// Guardar el número de habitaciones
 	size_t numHabitaciones = reservasPorHabitacion.size();
-	cout << "Número de habitaciones: " << numHabitaciones << endl;
 	archivo.write(reinterpret_cast<const char*>(&numHabitaciones), sizeof(numHabitaciones));
 	
 	for (const auto& par : reservasPorHabitacion) {
@@ -93,7 +91,6 @@ void GestionCalendario::GuardarEnArchivo() {
 			long fechaEntradaEpoch = reserva.fechaEntrada.GetTicks();
 			long fechaSalidaEpoch = reserva.fechaSalida.GetTicks();
 			
-			cout << "Fecha de entrada: " << fechaEntradaEpoch << ", Fecha de salida: " << fechaSalidaEpoch << endl;
 			
 			if (!archivo.write(reinterpret_cast<const char*>(&fechaEntradaEpoch), sizeof(fechaEntradaEpoch))) {
 				throw runtime_error("Error al escribir la fecha de entrada en el archivo");
@@ -105,7 +102,6 @@ void GestionCalendario::GuardarEnArchivo() {
 	}
 	
 	archivo.close();
-	cout << "Datos guardados correctamente." << endl;
 }
 
 void GestionCalendario::LeerDesdeArchivo() {

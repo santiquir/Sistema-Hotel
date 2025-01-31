@@ -40,7 +40,8 @@ void AgregarTransaccion::ClickBotonAgregar(wxCommandEvent& event) {
 	string s = wx_to_std(Selector->GetStringSelection());
 	if(s == "Ingreso") gp = true;
 	else gp = false;
-	m_transacciones->agregarHistorial(motivo,monto,gp);
+	wxDateTime a= wxDateTime::Now();
+	m_transacciones->agregarHistorial(motivo,monto,gp,a);
 	m_transacciones->GuardarActividad();
 	
 	EndModal(1);

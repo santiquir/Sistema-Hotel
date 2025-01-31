@@ -2,10 +2,11 @@
 #include <cstring>
 #include <string>
 
-ActividadReciente::ActividadReciente(string a_motivo, long a_monto, bool a_gp){
+ActividadReciente::ActividadReciente(string a_motivo, long a_monto, bool a_gp, wxDateTime a_fecha){
 	motivo = a_motivo;
 	monto = a_monto;
 	gp = a_gp;
+	fecha = a_fecha;
 }
 
 
@@ -20,8 +21,8 @@ void ActividadReciente::LeerDesdeBinario(ifstream &archivo) {
 	gp = reg.gp;
 	motivo = reg.motivo;
 	monto = reg.monto;
+	fecha.Set(reg.fecha.GetTicks());
 }
-
 
 void ActividadReciente::GuardarDesdeBinario(ofstream &archivo) {
 	Historial reg;
@@ -29,5 +30,9 @@ void ActividadReciente::GuardarDesdeBinario(ofstream &archivo) {
 	strcpy(reg.motivo, motivo.c_str());
 	reg.monto = monto;
 	reg.gp = gp;
+	reg.fecha = fecha.GetTicks();
+	
 	archivo.write((char*)&reg,sizeof(reg));
 }
+
+wxDateTime ActividadReciente::verFecha() const{return fecha;}

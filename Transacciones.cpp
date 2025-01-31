@@ -8,10 +8,12 @@
 #include <wx/msgdlg.h>
 #include "string_conv.h"
 #include <sstream>
+#include <wx/datetime.h>
+#include "GestionCalendario.h"
 using namespace std;
 
-Transacciones::Transacciones(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones) : 
-		mTransacciones(parent), m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones){
+Transacciones::Transacciones(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones, GestionCalendario* calendario) : 
+		mTransacciones(parent), m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), calendario(calendario){
 	
 
 	refrescarGrilla();
@@ -46,8 +48,10 @@ void Transacciones::refrescarGrilla(){
 		GrillaActividad->DeleteRows(0, GrillaActividad->GetNumberRows());
 	}
 	
-	for(int i = 0; i < m_transacciones->verCantidadHistorial();i++){
-		ActividadReciente &h = m_transacciones->verHistorial(i);
+	//Modificado para que muestre el vector del filtro (vector de filtro no esta terminado)
+	
+	for(int i = 0; i < m_transacciones->verCantidadFiltro();i++){
+		ActividadReciente h = m_transacciones->verHistorialFiltro(i);
 		string gp;
 		if(h.verGP() == true) gp = "+";
 		else gp = "-";
@@ -126,3 +130,25 @@ string Transacciones::FormatearNumero(long numero) {
 	}
 	return numeroStr;
 }
+
+void Transacciones::ClickFechaInput( wxDateEvent& event )  {
+	event.Skip();
+}
+
+void Transacciones::ClickBotonFiltrar( wxCommandEvent& event )  {
+	int selection = SeleccionRapida->GetSelection();
+	wxDateTime hoy = wxDateTime::Today();
+	//Hoy
+	if (selection == 0) {
+		for(int i = 0; i<m_transacciones->verCantidadHistorial();i++){
+			ActividadReciente &aux = m_transacciones->verHistorial(i);
+			wxDateTime f = aux.verFecha();
+			if(f == wxDateTime::Now()){
+				m_transacciones->agregarPersonaFiltro(aux);
+			}
+		}
+	}
+	
+	
+}
+

@@ -6,9 +6,10 @@
 #include "string_conv.h"
 #include <wx/datetime.h>
 
-ListaHuespedes::ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, GestionCalendario *calendario) : listHuespedes(parent), m_agenda(m_agenda), calendario(calendario){
+ListaHuespedes::ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, GestionCalendario *calendario) :
+		listHuespedes(parent), m_agenda(m_agenda), calendario(calendario){
 	refrescarGrilla();
-
+	
 }
 
 void ListaHuespedes::refrescarGrilla(){
@@ -84,6 +85,7 @@ void ListaHuespedes::ClickBotonEliminarHuesped( wxCommandEvent& event )  {
 		string aux = aModificar->verHab();
 		long numero = stol(aux);
 		calendario->QuitarReserva(x.first,numero);
+		calendario->GuardarEnArchivo();
 		
 		//Eliminar Persona
 		m_agenda->eliminarPersona(ind);	
@@ -100,8 +102,8 @@ void ListaHuespedes::ClickBotonModificarHuesped(wxCommandEvent& event) {
 	//MENSAJE DE ERROR SI NO SELECCIONA NADA
 	
 	if (f == wxNOT_FOUND) { 
-	wxMessageBox("Por favor, selecciona un huésped para modificar.", "Error", wxICON_ERROR);
-	return;
+		wxMessageBox("Por favor, selecciona un huésped para modificar.", "Error", wxICON_ERROR);
+		return;
 	}
 	
 	int ind = indices[f];
@@ -109,9 +111,9 @@ void ListaHuespedes::ClickBotonModificarHuesped(wxCommandEvent& event) {
 	
 	
 	ModificarHuespedes win(this, aModificar, m_agenda);
-
+	
 	if (win.ShowModal() == 1) { 
-	m_agenda->Guardar();
-	refrescarGrilla();
+		m_agenda->Guardar();
+		refrescarGrilla();
 	}
 }	

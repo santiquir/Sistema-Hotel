@@ -30,6 +30,7 @@
 #include <wx/dateevt.h>
 #include <wx/choice.h>
 #include <wx/dialog.h>
+#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -76,7 +77,7 @@ class listHabitaciones : public wxFrame
 		wxTextCtrl* BuscadorHabitaciones;
 		wxBitmapButton* BotonBuscarHabitacion;
 		wxGrid* GrillaHabitaciones;
-		wxButton* BotonCalendario;
+		wxBitmapButton* BotonCalendario;
 		wxBitmapButton* BotonAgregarHabitacion;
 		wxBitmapButton* BotonEliminarHabitacion;
 		wxBitmapButton* m_button8;
@@ -120,10 +121,10 @@ class Calendario : public wxDialog
 	protected:
 		wxStaticText* m_staticText66;
 		wxChoice* TextoNumeroHabReserva;
-		wxButton* BotonBuscarReservas;
+		wxBitmapButton* BotonBuscarReservas;
 		wxGrid* m_calendario;
 		wxChoice* SelectorPersona;
-		wxButton* BotonOcupar;
+		wxBitmapButton* BotonOcupar;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonBuscarReservas( wxCommandEvent& event ) { event.Skip(); }
@@ -306,6 +307,9 @@ class mTransacciones : public wxFrame
 		wxStaticText* m_staticText28;
 		wxBitmapButton* DescargarHistorial;
 		wxBitmapButton* BotonAgregarTransaccion;
+		wxPanel* PanelFecha;
+		wxChoice* SeleccionRapida;
+		wxButton* BotonFiltrar;
 		wxGrid* GrillaActividad;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -313,6 +317,7 @@ class mTransacciones : public wxFrame
 		virtual void ClickBotonCambiarCBU( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickDescargarHistorial( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonAgregarTransaccion( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonFiltrar( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:

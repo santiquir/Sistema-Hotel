@@ -12,7 +12,8 @@ CalendarioHabitaciones::CalendarioHabitaciones(wxWindow *parent, GestionCalendar
 			Calendario(parent), calendario(calendario),m_agendaHabitaciones(m_agendaHabitaciones), m_agenda(m_agenda),
 				m_transacciones(m_transacciones){
 		
-	refrescarSelector();
+	refrescarSelectorHabitacion();
+	refrescarSelectorPersona();
 	
 }
 
@@ -21,29 +22,36 @@ CalendarioHabitaciones::~CalendarioHabitaciones() {
 }
 
 
-void CalendarioHabitaciones::refrescarSelector(){
+void CalendarioHabitaciones::refrescarSelectorHabitacion(){
 	TextoNumeroHabReserva->Clear();
 	
 	for (int i = 0; i < m_agendaHabitaciones->verCantidadHabitaciones();i++){
 		Habitacion &h = m_agendaHabitaciones->verHabitacion(i);
 		TextoNumeroHabReserva->Append(wxString::Format("%ld", h.verNumero()));
 	}
-	
-	SelectorPersona->Clear();
-	for (int i = 0; i < m_agenda->CantidadDatos();i++){
-		Persona &p = m_agenda->verPersona(i);
-		SelectorPersona->Append(p.verApellido() + ", " + p.verNombre());
-	}
-	
 }
 
+void CalendarioHabitaciones::refrescarSelectorPersona(){
+	SelectorPersona->Clear();
+	long n;
+	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&n)) {
+		return;
+	}
+	
+	for(int i = 0; i < m_agenda->CantidadDatos();i++){
+		Persona &p = m_agenda->verPersona(i);
+		if(p.verHab() == to_string(n)){
+			SelectorPersona->Append(p.verApellido() + ", " + p.verNombre());
+		}
+	}
+}
 
 void CalendarioHabitaciones::refrescarCalendario(){
 	long numeroHabitacion;
 	
 	
 	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numeroHabitacion)) {
-		cout << "Error: Número de habitación inválido." << endl;
+		wxMessageBox("Número de habitación inválido.","Error",wxICON_ERROR);
 		return;
 	}
 	
@@ -74,7 +82,7 @@ void CalendarioHabitaciones::refrescarCalendario(){
 		for(int i = 0; i < m_agenda->CantidadDatos();i++){
 			Persona &p = m_agenda->verPersona(i);
 			pair<wxDateTime,wxDateTime> x = p.verFechaReserva();
-			if(reserva.fechaEntrada == x.first && reserva.fechaSalida == x.second){
+			if(reserva.fechaEntrada == x.first && reserva.fechaSalida == x.second && p.verHab() == to_string(numeroHabitacion)){
 				nombre = p.verApellido() + ", " + p.verNombre();
 				est = p.verEstado();
 				break;
@@ -116,10 +124,10 @@ void CalendarioHabitaciones::ClickBotonBuscarReservas( wxCommandEvent& event )  
 	const auto& reservas = calendario->ObtenerReservas(numeroHabitacion);
 	
 	if(reservas.empty() && m_calendario->GetNumberRows() == 0)
-		wxMessageBox("La habitacion no presenta ninguna reserva","Error",wxICON_INFORMATION);
+		wxMessageBox("La habitación no presenta ninguna reserva","Error",wxICON_INFORMATION);
 	
 	if(reservas.empty() && m_calendario->GetNumberRows()>0){
-		wxMessageBox("La habitacion no presenta ninguna reserva","Error",wxICON_INFORMATION);
+		wxMessageBox("La habitación no presenta ninguna reserva","Error",wxICON_INFORMATION);
 		m_calendario->DeleteRows(0,m_calendario->GetNumberRows());
 	}
 		
@@ -128,6 +136,7 @@ void CalendarioHabitaciones::ClickBotonBuscarReservas( wxCommandEvent& event )  
 		refrescarCalendario();
 	}
 	refrescarCalendario();
+	refrescarSelectorPersona();
 }
 
 void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
@@ -161,7 +170,7 @@ void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 	}
 	
 	if(yaOcupado){
-		wxMessageBox("Habitacion ocupada","Error",wxICON_ERROR);
+		wxMessageBox("Habitación ocupada","Error",wxICON_ERROR);
 		return;
 	}
 	
@@ -169,7 +178,7 @@ void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 		Persona &p = m_agenda->verPersona(i);
 		if(p.verNombre() == nombre && p.verApellido() == apellido){
 			if(p.verEstado()){
-				wxMessageBox("Este huesped ya esta ocupando la habitacion","Error",wxICON_ERROR);
+				wxMessageBox("Este huesped ya esta ocupando la habitación","Error",wxICON_ERROR);
 				return;
 			}else{
 				p.modificarEstado();
@@ -192,8 +201,9 @@ void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 			break;
 		}
 	}
-	string motivo = "Pago total de la habitacion " + to_string(numero) ;
-	m_transacciones->agregarHistorial(motivo,monto_total,true);
+	string motivo = "Pago total de la habitación " + to_string(numero) ;
+	wxDateTime a = wxDateTime::Now();
+	m_transacciones->agregarHistorial(motivo,monto_total,true,a);
 	m_transacciones->GuardarActividad();
 	
 	m_agenda->Guardar();

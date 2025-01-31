@@ -21,7 +21,8 @@ public:
 		GestionPersonas *m_agenda, GestionTransacciones *m_transacciones);
 	~CalendarioHabitaciones();
 	void refrescarCalendario();
-	void refrescarSelector();
+	void refrescarSelectorHabitacion();
+	void refrescarSelectorPersona();
 };
 
 #endif

@@ -7,6 +7,7 @@ GestionTransacciones::GestionTransacciones(string a_datos, string a_actividad) {
 	archivoDatos = a_datos;
 	archivoActividad = a_actividad;
 	ifstream archi(archivoDatos.c_str(),ios::binary | ios:: in);
+	
 	if(!archi.is_open()){
 		throw runtime_error("No pudo abrirse el archivo de Datos Transacciones");
 	}
@@ -64,8 +65,8 @@ bool GestionTransacciones::Guardar(){
 	return true;
 }
 
-void GestionTransacciones::agregarHistorial(string motivo, long monto, bool gp) {
-	ActividadReciente aux(motivo,monto,gp);
+void GestionTransacciones::agregarHistorial(string motivo, long monto, bool gp, wxDateTime a) {
+	ActividadReciente aux(motivo,monto,gp, a);
 	v.insert(v.begin(),aux);
 }
 
@@ -94,3 +95,7 @@ int GestionTransacciones::verCantidadHistorial(){return v.size();}
 ActividadReciente &GestionTransacciones::operator[](int i){return v[i];}
 
 ActividadReciente &GestionTransacciones::verHistorial(int i){return v[i];}
+void GestionTransacciones::agregarPersonaFiltro(ActividadReciente a){v_filtro.push_back(a);}
+void GestionTransacciones::resetFiltro(){v_filtro.erase(v_filtro.begin(),v_filtro.end());}
+int GestionTransacciones::verCantidadFiltro(){return v_filtro.size();}
+ActividadReciente GestionTransacciones::verHistorialFiltro(int i){return v_filtro[i];}

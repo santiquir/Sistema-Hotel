@@ -169,7 +169,8 @@ void ListaHabitaciones::ClickBotonReservar(wxCommandEvent& event) {
 	
 		
 	string motivo = "Reserva de la habitacion " + to_string(numero) + "(adelanto del 30%)" ;
-	m_transacciones->agregarHistorial(motivo,monto_parcial,true);
+	wxDateTime aux = wxDateTime::Now();
+	m_transacciones->agregarHistorial(motivo,monto_parcial,true,aux);
 	m_transacciones->GuardarActividad();
 		
 	string nombre,apellido;

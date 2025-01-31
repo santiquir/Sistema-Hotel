@@ -26,12 +26,12 @@ void VentanaPrincipal::ClickBotonHabitacion( wxCommandEvent& event )  {
 }
 
 void VentanaPrincipal::ClickBotonHuesped( wxCommandEvent& event )  {
-	ListaHuespedes *win = new ListaHuespedes(this,m_agenda, calendario);
+	ListaHuespedes *win = new ListaHuespedes(this,m_agenda,calendario);
 	win -> Show();
 }
 
 void VentanaPrincipal::ClickBotonTransacciones( wxCommandEvent& event )  {
-	LoginTransaccion *win = new LoginTransaccion(this,m_agendaHabitaciones,m_transacciones);
+	LoginTransaccion *win = new LoginTransaccion(this,m_agendaHabitaciones,m_transacciones, calendario);
 	win -> Show();
 }
 
