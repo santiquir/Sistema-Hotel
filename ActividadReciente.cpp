@@ -18,10 +18,12 @@ bool ActividadReciente::verGP() const{return gp;}
 void ActividadReciente::LeerDesdeBinario(ifstream &archivo) {
 	Historial reg;
 	archivo.read((char*)&reg,sizeof(reg));
+	long a = reg.fecha.GetTicks();
+	fecha.Set(a);
 	gp = reg.gp;
 	motivo = reg.motivo;
 	monto = reg.monto;
-	fecha.Set(reg.fecha.GetTicks());
+	
 }
 
 void ActividadReciente::GuardarDesdeBinario(ofstream &archivo) {

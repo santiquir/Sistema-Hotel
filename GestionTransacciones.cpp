@@ -7,7 +7,15 @@ GestionTransacciones::GestionTransacciones(string a_datos, string a_actividad) {
 	archivoDatos = a_datos;
 	archivoActividad = a_actividad;
 	ifstream archi(archivoDatos.c_str(),ios::binary | ios:: in);
-	
+	if (!archi) {
+		// Si el archivo no existe, crearlo
+		ofstream nuevoArchivo(archivoActividad, ios::binary);
+		if (!nuevoArchivo) {
+			throw runtime_error("No se pudo crear el archivo para leer el calendario");
+		}
+		nuevoArchivo.close();
+		return;
+	}
 	if(!archi.is_open()){
 		throw runtime_error("No pudo abrirse el archivo de Datos Transacciones");
 	}
@@ -20,6 +28,15 @@ GestionTransacciones::GestionTransacciones(string a_datos, string a_actividad) {
 	archi.close();
 	
 	ifstream archivo(archivoActividad.c_str(),ios::binary | ios::in|ios::ate);
+	if (!archivo) {
+		// Si el archivo no existe, crearlo
+		ofstream nuevoArchivo(archivoActividad, ios::binary);
+		if (!nuevoArchivo) {
+			throw runtime_error("No se pudo crear el archivo para leer el calendario");
+		}
+		nuevoArchivo.close();
+		return;
+	}
 	if(archivo.is_open()){    
 		int tamanio_archivo = archivo.tellg();
 		int cantHistorial = tamanio_archivo/sizeof(Historial);

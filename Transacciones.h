@@ -10,8 +10,9 @@ class Transacciones : public mTransacciones {
 private:
 	
 protected:
+	void CFiltroOn( wxCommandEvent& event )  override;
 	void ClickFechaInput( wxDateEvent& event )  ;
-	void ClickBotonFiltrar( wxCommandEvent& event )  override;
+	void Filtrar()  ;
 	void ClickDescargarHistorial( wxCommandEvent& event )  override;
 	void ClickBotonCambiarAlias( wxCommandEvent& event )  override;
 	void ClickBotonCambiarCBU( wxCommandEvent& event )  override;
@@ -24,6 +25,7 @@ protected:
 public:
 	Transacciones(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones, GestionCalendario* calendario);
 	~Transacciones();
+	void mostrarFiltro();
 	void actualizarDinero();
 	void actualizarDatos();
 	void refrescarGrilla();

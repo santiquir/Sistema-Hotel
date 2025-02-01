@@ -30,6 +30,7 @@
 #include <wx/dateevt.h>
 #include <wx/choice.h>
 #include <wx/dialog.h>
+#include <wx/checkbox.h>
 #include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -309,7 +310,7 @@ class mTransacciones : public wxFrame
 		wxBitmapButton* BotonAgregarTransaccion;
 		wxPanel* PanelFecha;
 		wxChoice* SeleccionRapida;
-		wxButton* BotonFiltrar;
+		wxCheckBox* CFiltro;
 		wxGrid* GrillaActividad;
 		
 		// Virtual event handlers, overide them in your derived class
@@ -317,7 +318,7 @@ class mTransacciones : public wxFrame
 		virtual void ClickBotonCambiarCBU( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickDescargarHistorial( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonAgregarTransaccion( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBotonFiltrar( wxCommandEvent& event ) { event.Skip(); }
+		virtual void CFiltroOn( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:

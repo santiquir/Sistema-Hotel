@@ -1203,14 +1203,14 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer89;
 	bSizer89 = new wxBoxSizer( wxHORIZONTAL );
 	
-	wxString SeleccionRapidaChoices[] = { wxT("hoy"), wxT("ayer"), wxT("3 dias"), wxT("1 semana"), wxT("1 mes"), wxT("7 meses"), wxT("Todo") };
+	wxString SeleccionRapidaChoices[] = { wxT("hoy"), wxT("ayer"), wxT("3 dias"), wxT("1 semana"), wxT("1 mes"), wxT("7 meses") };
 	int SeleccionRapidaNChoices = sizeof( SeleccionRapidaChoices ) / sizeof( wxString );
 	SeleccionRapida = new wxChoice( PanelFecha, wxID_ANY, wxDefaultPosition, wxDefaultSize, SeleccionRapidaNChoices, SeleccionRapidaChoices, 0 );
-	SeleccionRapida->SetSelection( 0 );
+	SeleccionRapida->SetSelection( 1 );
 	bSizer89->Add( SeleccionRapida, 0, wxALL, 5 );
 	
-	BotonFiltrar = new wxButton( PanelFecha, wxID_ANY, wxT("filtrar"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer89->Add( BotonFiltrar, 0, wxALL, 5 );
+	CFiltro = new wxCheckBox( PanelFecha, wxID_ANY, wxT("Filtrar"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer89->Add( CFiltro, 0, wxALL, 5 );
 	
 	
 	PanelFecha->SetSizer( bSizer89 );
@@ -1264,7 +1264,7 @@ mTransacciones::mTransacciones( wxWindow* parent, wxWindowID id, const wxString&
 	BotonCambiarCBU->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonCambiarCBU ), NULL, this );
 	DescargarHistorial->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickDescargarHistorial ), NULL, this );
 	BotonAgregarTransaccion->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonAgregarTransaccion ), NULL, this );
-	BotonFiltrar->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonFiltrar ), NULL, this );
+	CFiltro->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mTransacciones::CFiltroOn ), NULL, this );
 }
 
 mTransacciones::~mTransacciones()
@@ -1274,7 +1274,7 @@ mTransacciones::~mTransacciones()
 	BotonCambiarCBU->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonCambiarCBU ), NULL, this );
 	DescargarHistorial->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickDescargarHistorial ), NULL, this );
 	BotonAgregarTransaccion->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonAgregarTransaccion ), NULL, this );
-	BotonFiltrar->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( mTransacciones::ClickBotonFiltrar ), NULL, this );
+	CFiltro->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( mTransacciones::CFiltroOn ), NULL, this );
 	
 }
 

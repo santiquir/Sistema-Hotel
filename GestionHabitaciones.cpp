@@ -8,6 +8,15 @@ GestionHabitaciones::GestionHabitaciones(string a_archivo){
 	nombreArchivo = a_archivo;
 	
 	ifstream archivo(nombreArchivo.c_str(),ios::binary | ios::in|ios::ate);
+	if (!archivo) {
+		// Si el archivo no existe, crearlo
+		ofstream nuevoArchivo(nombreArchivo, ios::binary);
+		if (!nuevoArchivo) {
+			throw runtime_error("No se pudo crear el archivo para leer el calendario");
+		}
+		nuevoArchivo.close();
+		return;
+	}
 	if(archivo.is_open()){    
 		int tamanio_archivo = archivo.tellg();
 		int cantHabitaciones = tamanio_archivo/sizeof(habitacion_str);
