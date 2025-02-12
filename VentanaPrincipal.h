@@ -11,6 +11,7 @@ class VentanaPrincipal : public vPrincipal {
 private:
 	
 protected:
+	void ClickBotonReservas( wxCommandEvent& event )  override;
 	void ClickBotonTransacciones( wxCommandEvent& event )  override;
 	void ClickBotonHuesped( wxCommandEvent& event )  override;
 	void ClickBotonHabitacion( wxCommandEvent& event )  override;

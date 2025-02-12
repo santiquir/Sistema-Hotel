@@ -8,21 +8,13 @@
 #include <wx/msgdlg.h>
 #include "string_conv.h"
 #include <sstream>
-#include <wx/datetime.h>
-#include "GestionCalendario.h"
 using namespace std;
 
 Transacciones::Transacciones(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones, GestionCalendario* calendario) : 
-		mTransacciones(parent), m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), calendario(calendario){
+	mTransacciones(parent), m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), calendario(calendario){
 	
-
 	refrescarGrilla();
 	actualizarDatos();
-	
-}
-
-Transacciones::~Transacciones() {
-	
 }
 
 void Transacciones::mostrarFiltro(){
@@ -30,7 +22,7 @@ void Transacciones::mostrarFiltro(){
 		GrillaActividad->DeleteRows(0, GrillaActividad->GetNumberRows());
 	}
 	
-	//Modificado para que muestre el vector del filtro (vector de filtro no esta terminado)
+	//Modificado para que muestre el vector del filtro
 	
 	for(int i = 0; i < m_transacciones->verCantidadFiltro();i++){
 		ActividadReciente h = m_transacciones->verHistorial(i);
@@ -69,7 +61,6 @@ void Transacciones::actualizarDatos(){
 		string plata_str = FormatearNumero(plata);
 		DineroAcumulado->SetLabel(wxString(plata_str));
 		m_transacciones->Guardar();
-		cout << plata_str;
 		
 	}
 }
@@ -79,10 +70,8 @@ void Transacciones::refrescarGrilla(){
 		GrillaActividad->DeleteRows(0, GrillaActividad->GetNumberRows());
 	}
 	
-	//Modificado para que muestre el vector del filtro (vector de filtro no esta terminado)
-	
 	for(int i = 0; i < m_transacciones->verCantidadHistorial();i++){
-		ActividadReciente h = m_transacciones->verHistorial(i);
+		ActividadReciente &h = m_transacciones->verHistorial(i);
 		string gp;
 		if(h.verGP() == true) gp = "+";
 		else gp = "-";
@@ -140,26 +129,15 @@ void Transacciones::ClickDescargarHistorial( wxCommandEvent& event )  {
 		wxMessageBox("Error al crear el archivo", "Error", wxICON_ERROR);
 		return;
 	}
-	if (CFiltro->IsChecked()) {
-		for(int i = 0; i<m_transacciones->verCantidadFiltro();i++){
-			ActividadReciente aux = m_transacciones->verHistorialFiltro(i);
-			ostringstream oss;
-			oss << "Monto: " << aux.verMonto() << " Motivo: " << aux.verMotivo() << std::endl;
-			file << oss.str();
-		}
-		file.close();
-		wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
-		
-	} else {
-		for(int i = 0; i<m_transacciones->verCantidadHistorial();i++){
-			ActividadReciente &aux = m_transacciones->verHistorial(i);
-			ostringstream oss;
-			oss << "Monto: " << aux.verMonto() << " Motivo: " << aux.verMotivo() << std::endl;
-			file << oss.str();
-		}
-		file.close();
-		wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
+	
+	for(int i = 0; i<m_transacciones->verCantidadHistorial();i++){
+		ActividadReciente &aux = m_transacciones->verHistorial(i);
+		ostringstream oss;
+		oss << "Monto: " << aux.verMonto() << " Motivo: " << aux.verMotivo() << std::endl;
+		file << oss.str();
 	}
+	file.close();
+	wxMessageBox("Archivo creado exitosamente en \n" + filepath, "Exito: ", wxICON_INFORMATION);
 }
 
 string Transacciones::FormatearNumero(long numero) {
@@ -172,32 +150,43 @@ string Transacciones::FormatearNumero(long numero) {
 	}
 	return numeroStr;
 }
-
-void Transacciones::ClickFechaInput( wxDateEvent& event )  {
-	event.Skip();
-}
-
+//ultima semana, ultimo mes, ultimos 3 meses
 void Transacciones::Filtrar() {
-	int selection = SeleccionRapida->GetSelection();
+	int selector = SeleccionRapida->GetSelection();
 	wxDateTime hoy = wxDateTime::Today();
+	hoy.ResetTime();
 	m_transacciones->resetFiltro();
+	
+	wxDateTime inicioFiltro;
+	
+	switch (selector) {
+	case 0: // "hoy"
+		inicioFiltro = hoy;
+		break;
+	case 1: // "última semana"
+		inicioFiltro = hoy - wxTimeSpan::Days(6); // Desde hace 6 días hasta hoy
+		break;
+	case 2: // "último mes"
+		inicioFiltro = hoy - wxTimeSpan::Days(29); // Últimos 30 días
+		break;
+	case 3: // "últimos 3 meses"
+		inicioFiltro = hoy - wxTimeSpan::Days(89); // Últimos 90 días
+		break;
+	default:
+		return; // No debería ocurrir
+	}
+	
 	for (int i = 0; i < m_transacciones->verCantidadHistorial(); i++) {
 		ActividadReciente &aux = m_transacciones->verHistorial(i);
 		wxDateTime f = aux.verFecha();
-		f.ResetTime(); hoy.ResetTime();
-		bool cumple = false;
-		switch (selection) {
-		case 0: cumple = (f == hoy); break;
-		case 1: cumple = (f == hoy - wxTimeSpan::Days(1)); break;
-		case 2: cumple = (f == hoy - wxTimeSpan::Days(3)); break;
-		case 3: cumple = (f >= hoy - wxTimeSpan::Days(7) && f <= hoy); break;
-		case 4: cumple = (f >= hoy - wxTimeSpan::Days(30) && f <= hoy); break;
-		case 5: cumple = (f >= hoy - wxTimeSpan::Days(210) && f <= hoy); break;
-		}
-		if (cumple) {
+		f.ResetTime();
+		
+		// Verifica que la fecha esté dentro del rango
+		if (f >= inicioFiltro && f <= hoy) {
 			m_transacciones->agregarPersonaFiltro(aux);
 		}
 	}
+	
 	if (m_transacciones->verCantidadFiltro() == 0) {
 		GrillaActividad->DeleteRows(0, GrillaActividad->GetNumberRows());
 	} else {
@@ -206,15 +195,13 @@ void Transacciones::Filtrar() {
 }
 
 
+//se encarga de manejar el checkbox
 void Transacciones::CFiltroOn( wxCommandEvent& event )  {
 	if (CFiltro->IsChecked()) {
-		// Aplicar filtrado cuando el checkbox está activo
-		cout << "Esta activo" << endl;
 		Filtrar();
 	} else {
-		// Opcional: Aquí puedes limpiar el filtro o hacer nada
-		cout << "Esta inactivo" << endl;
 		refrescarGrilla();
 	}
 }
 
+Transacciones::~Transacciones() {}

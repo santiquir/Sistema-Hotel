@@ -8,22 +8,24 @@
 using namespace std;
 
 struct reg_persona{
-    char nombre[100];
-    char apellido[100];
-    char email[100];
+    char nombre[25];
+    char apellido[25];
+    char email[45];
     char telefono[12];
 	char hab[2];
 	long diaNac,mesNac,anioNac, DNI;
 	long fechaEntradaEpoch;
 	long fechaSalidaEpoch;
-	bool estado;
+	bool estadoTieneHabitacion;
+	bool reservo_ocupo;
+	char rol[13];
 };
 class Persona{
     private:
-        string nombre, apellido, email, telefono, hab;
+        string nombre, apellido, email, telefono, hab, rol;
 		long DNI, dia, mes, anio;
 		pair<wxDateTime,wxDateTime> fechaReserva;
-		bool estado;
+		bool estadoTieneHabitacion, reservo_ocupo;
 		;
     public:
         Persona(string a_nombre="", string a_apellido="", string a_telefono="", string a_hab="-",
@@ -40,9 +42,13 @@ class Persona{
         long verDiaNacimiento() const;
 		long verDNI() const;
         string verTelefono() const;
-		bool verEstado() const;
+		bool verEstadoTieneHabitacion() const;
+		bool verEstadoReservo_ocupo() const;
+		string verRol() const;
 		
-		void modificarEstado();
+		void modificarRol(string nuevoRol);
+		void modificarEstadoTieneHabitacion();
+		void modificarReservo_ocupo();
 		void modificarFechaReserva(wxDateTime entrada, wxDateTime salida);
 		void modificarHab(string a_hab);
         void modificarNombre(string a_nombre);
@@ -55,7 +61,7 @@ class Persona{
         void modificarEmail(string a_email);
         void GuardarEnBinario(ofstream &archivo);
         void LeerDesdeBinario(ifstream &archivo);
-
+		bool operator ==(const Persona& otra) const;
 };
 
 #endif

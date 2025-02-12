@@ -6,8 +6,9 @@
 #include "GestionTransacciones.h"
 #include "CambiarClave.h"
 using namespace std;
-LoginTransaccion::LoginTransaccion(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones, GestionCalendario* calendario): 
-		LoginTransacciones(parent), m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), calendario(calendario){
+LoginTransaccion::LoginTransaccion(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones, 
+		GestionTransacciones *m_transacciones, GestionCalendario *calendario):  LoginTransacciones(parent), 
+		m_agendaHabitaciones(m_agendaHabitaciones), m_transacciones(m_transacciones), calendario(calendario){
 	
 }
 
@@ -19,7 +20,7 @@ LoginTransaccion::~LoginTransaccion() {
 void LoginTransaccion::ClickBotonIngresarTransacciones( wxCommandEvent& event )  {
 	wxString x = TextoContrasena->GetValue();
 	if(m_transacciones->verContrasena() == x){
-		Transacciones *win = new Transacciones(this,m_agendaHabitaciones,m_transacciones, calendario);
+		Transacciones *win = new Transacciones(this,m_agendaHabitaciones,m_transacciones,calendario);
 		win -> Show();
 	}
 	else{

@@ -6,7 +6,7 @@
 #include <wx/string.h>
 
 AgregarTransaccion::AgregarTransaccion(wxWindow *parent, GestionTransacciones *m_transacciones) : 
-		AgTransaccion(parent), m_transacciones(m_transacciones){
+	AgTransaccion(parent), m_transacciones(m_transacciones){
 	
 }
 
@@ -16,25 +16,25 @@ AgregarTransaccion::~AgregarTransaccion() {
 
 void AgregarTransaccion::ClickBotonAgregar(wxCommandEvent& event) {
 	long monto; string motivo; bool gp;;
-	bool valid = true; // Bandera para validar los datos de entrada.
-	wxString errorMsg;
+	bool validar = true; // Bandera para validar los datos de entrada.
+	wxString errorMsj;
 	
 	// Validar monto
 	if (!TextoMonto->GetValue().ToLong(&monto) || monto <= 0) {
-		errorMsg += "El monto ingresado no es válido.\n";
-		valid = false;
+		errorMsj += "El monto ingresado no es válido.\n";
+		validar = false;
 	}
 	
 	// Validar motivo
 	motivo = wx_to_std(TextoMotivo->GetValue());
 	if (motivo.empty()) {
-		errorMsg += "El motivo está vacío.\n";
-		valid = false;
+		errorMsj += "El motivo está vacío.\n";
+		validar = false;
 	}
 	
 	// Mostrar error si no es válido
-	if (!valid) {
-		wxMessageBox(errorMsg, "Error", wxICON_ERROR);
+	if (!validar) {
+		wxMessageBox(errorMsj, "Error", wxICON_ERROR);
 		return;
 	}
 	string s = wx_to_std(Selector->GetStringSelection());

@@ -16,8 +16,10 @@ protected:
 	GestionHabitaciones *m_agendaHabitaciones;
 	GestionTransacciones *m_transacciones;
 	GestionCalendario *calendario;
+	
 public:
-	LoginTransaccion(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones,GestionTransacciones *m_transacciones, GestionCalendario* calendario);
+	LoginTransaccion(wxWindow *parent, GestionHabitaciones *m_agendaHabitaciones,GestionTransacciones *m_transacciones,
+		GestionCalendario *calendario);
 	~LoginTransaccion();
 };
 

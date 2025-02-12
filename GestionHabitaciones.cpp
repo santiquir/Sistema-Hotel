@@ -9,7 +9,7 @@ GestionHabitaciones::GestionHabitaciones(string a_archivo){
 	
 	ifstream archivo(nombreArchivo.c_str(),ios::binary | ios::in|ios::ate);
 	if (!archivo) {
-		// Si el archivo no existe, crearlo
+		// Si el archivo no existe lo crea
 		ofstream nuevoArchivo(nombreArchivo, ios::binary);
 		if (!nuevoArchivo) {
 			throw runtime_error("No se pudo crear el archivo para leer el calendario");
@@ -71,16 +71,3 @@ bool GestionHabitaciones::guardar() {
 Habitacion &GestionHabitaciones::operator[](int i){return habitaciones[i];}
 
 Habitacion &GestionHabitaciones::verHabitacion(int i){return habitaciones[i];}
-
-/*double GestionHabitaciones::dineroTotalGanado(){
-	double dinero = 0;
-	
-	for(size_t i = 0; i < habitaciones.size();i++){
-		if(habitaciones[i].verEstado() == true){
-			dinero += habitaciones[i].verPrecio();
-		}
-	}
-	return dinero;
-}
-*/
-

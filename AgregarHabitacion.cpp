@@ -14,12 +14,12 @@ AgregarHabitacion::~AgregarHabitacion() {
 void AgregarHabitacion::ClickBotonAceptarHabitacion( wxCommandEvent& event )  {
 	
 	string tipo = wx_to_std(TextoTipoHab->GetValue());
-	long precio, numero;
+	long precio, numero, capacidad;
 	TextoPrecioHab->GetValue().ToLong(&precio);
 	TextoNumeroHab->GetValue().ToLong(&numero);
+	TextoCapacidad->GetValue().ToLong(&capacidad);
 	
-	
-	Habitacion h(tipo,precio,numero);
+	Habitacion h(tipo,precio,numero, capacidad);
 	string errores = h.validarHabitacion();
 	if(errores.empty()){
 		m_agendaHabitaciones->agregarHabitacion(h);

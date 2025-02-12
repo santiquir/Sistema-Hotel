@@ -4,8 +4,6 @@
 #include "GestionHabitaciones.h"
 #include "GestionTransacciones.h"
 #include <vector>
-#include "GestionPersona.h"
-#include "GestionCalendario.h"
 using namespace std;
 
 class ListaHabitaciones : public listHabitaciones {
@@ -13,24 +11,18 @@ class ListaHabitaciones : public listHabitaciones {
 private:
 	
 protected:
-	void ClickBotonCalendario( wxCommandEvent& event )  override;
 	void ClickBotonModificarHabitacion( wxCommandEvent& event )  override;
-	void ClickBotonQuitarReserva( wxCommandEvent& event )  override;
 	GestionHabitaciones *m_agendaHabitaciones;
 	GestionTransacciones *m_transacciones;
-	GestionPersonas *m_agenda;
-	GestionCalendario *calendario;
 	vector<int> indices;
 	string FormatearNumero(long numero);
 	void ClickBotonBuscarHabitacion( wxCommandEvent& event )  override;
 	void ClickBotonEliminarHabitacion( wxCommandEvent& event )  override;
-	void ClickBotonReservar( wxCommandEvent& event )  override;
 	void ClickBotonAgregarHabitacion( wxCommandEvent& event )  override;
 	
 	
 public:
-	ListaHabitaciones(wxWindow *parent,GestionHabitaciones *m_agendaHabitaciones,
-					  GestionTransacciones *m_transacciones, GestionPersonas *m_agenda, GestionCalendario *calendario);
+	ListaHabitaciones(wxWindow *parent,GestionHabitaciones *m_agendaHabitaciones, GestionTransacciones *m_transacciones);
 	~ListaHabitaciones();
 	void refrescarGrilla();
 	void refrescarSelector();

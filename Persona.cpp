@@ -18,7 +18,9 @@ Persona::Persona(string a_nombre, string a_apellido, string a_telefono, string a
 	mes = a_mesNac;
 	anio = a_anioNac;
 	fechaReserva = make_pair(wxDateTime::Now(), wxDateTime::Now());
-	estado = false;
+	estadoTieneHabitacion = false;
+	reservo_ocupo = false;
+	rol = "-";
 }
 
 string Persona::verHab() const{return hab;}
@@ -30,16 +32,20 @@ long Persona::verMesNacimiento() const{return mes;}
 long Persona::verAnioNacimiento() const{return anio;}
 string Persona::verTelefono() const{return telefono;}
 long Persona::verDNI() const{return DNI;}
+string Persona::verRol() const{return rol;}
 pair<wxDateTime,wxDateTime> Persona::verFechaReserva() const{return fechaReserva;}
 
 void Persona::modificarFechaReserva(wxDateTime entrada, wxDateTime salida){
 	fechaReserva.first = entrada;
 	fechaReserva.second = salida;
 }
-bool Persona::verEstado() const{return estado;}
+bool Persona::verEstadoTieneHabitacion() const{return estadoTieneHabitacion;}
+bool Persona::verEstadoReservo_ocupo() const {return reservo_ocupo;}
 
 
-void Persona::modificarEstado(){estado = !estado;}
+void Persona::modificarRol(string nuevoRol){rol = nuevoRol;}
+void Persona::modificarEstadoTieneHabitacion(){estadoTieneHabitacion = !estadoTieneHabitacion;}
+void Persona::modificarReservo_ocupo(){reservo_ocupo = !reservo_ocupo;}
 void Persona::modificarHab(string a_hab){hab = a_hab;}
 void Persona::modificarNombre(string a_nombre){nombre = a_nombre;}
 void Persona::modificarApellido(string a_apellido){apellido = a_apellido;}
@@ -61,7 +67,9 @@ void Persona::GuardarEnBinario(ofstream &archivo){
 	reg.mesNac = mes;
 	reg.anioNac = anio;
 	reg.DNI = DNI;
-	reg.estado = estado;
+	strcpy(reg.rol, rol.c_str());
+	reg.estadoTieneHabitacion = estadoTieneHabitacion;
+	reg.reservo_ocupo = reservo_ocupo;
 	reg.fechaEntradaEpoch = fechaReserva.first.IsValid() ? fechaReserva.first.GetTicks() : 0;
 	reg.fechaSalidaEpoch = fechaReserva.second.IsValid() ? fechaReserva.second.GetTicks() : 0;
 	archivo.write((char*) (&reg),sizeof(reg));
@@ -79,7 +87,9 @@ void Persona::LeerDesdeBinario(ifstream &archivo) {
 	mes = reg.mesNac;
 	anio = reg.anioNac;
 	DNI = reg.DNI;
-	estado = reg.estado;
+	rol = reg.rol;
+	estadoTieneHabitacion = reg.estadoTieneHabitacion ;
+	reservo_ocupo = reg.reservo_ocupo;
 	wxDateTime fechaEntrada, fechaSalida;
 	fechaEntrada.Set(reg.fechaEntradaEpoch); 
 	fechaSalida.Set(reg.fechaSalidaEpoch);    	
@@ -117,3 +127,6 @@ string Persona::validarDatos() {
 	return errores;
 }
 
+bool Persona::operator ==(const Persona& otra) const{
+	return this->verNombre() == otra.verNombre() && this->verApellido() == otra.verApellido(); // Compara por número de habitación
+}

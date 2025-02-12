@@ -17,11 +17,6 @@ CalendarioHabitaciones::CalendarioHabitaciones(wxWindow *parent, GestionCalendar
 	
 }
 
-CalendarioHabitaciones::~CalendarioHabitaciones() {
-	
-}
-
-
 void CalendarioHabitaciones::refrescarSelectorHabitacion(){
 	TextoNumeroHabReserva->Clear();
 	
@@ -40,7 +35,7 @@ void CalendarioHabitaciones::refrescarSelectorPersona(){
 	
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
 		Persona &p = m_agenda->verPersona(i);
-		if(p.verHab() == to_string(n)){
+		if(p.verHab() == to_string(n) && p.verRol() == "Titular"){
 			SelectorPersona->Append(p.verApellido() + ", " + p.verNombre());
 		}
 	}
@@ -48,7 +43,6 @@ void CalendarioHabitaciones::refrescarSelectorPersona(){
 
 void CalendarioHabitaciones::refrescarCalendario(){
 	long numeroHabitacion;
-	
 	
 	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numeroHabitacion)) {
 		wxMessageBox("Número de habitación inválido.","Error",wxICON_ERROR);
@@ -82,9 +76,9 @@ void CalendarioHabitaciones::refrescarCalendario(){
 		for(int i = 0; i < m_agenda->CantidadDatos();i++){
 			Persona &p = m_agenda->verPersona(i);
 			pair<wxDateTime,wxDateTime> x = p.verFechaReserva();
-			if(reserva.fechaEntrada == x.first && reserva.fechaSalida == x.second && p.verHab() == to_string(numeroHabitacion)){
+			if(reserva.fechaEntrada == x.first && reserva.fechaSalida == x.second && p.verHab() == to_string(numeroHabitacion) && p.verRol() == "Titular"){
 				nombre = p.verApellido() + ", " + p.verNombre();
-				est = p.verEstado();
+				est = p.verEstadoReservo_ocupo();
 				break;
 			}
 		}
@@ -96,20 +90,19 @@ void CalendarioHabitaciones::refrescarCalendario(){
 			m_calendario->SetCellValue(cont,1,salida);
 			m_calendario->SetCellValue(cont,2,nombre);
 	
-		
+			//si esta ocupando la habitacion, el fila se pinta de verde
 			if(est){
 				m_calendario->SetCellBackgroundColour(cont,0,wxColour(150,230,150));
 				m_calendario->SetCellBackgroundColour(cont,1,wxColour(150,230,150));
 				m_calendario->SetCellBackgroundColour(cont,2,wxColour(150,230,150));
 			}
+			//si esta reservando pero no ocupando la habitacion, el fila se pinta de amarillo
 			else{
 				m_calendario->SetCellBackgroundColour(cont,0,wxColour(255,240,150));
 				m_calendario->SetCellBackgroundColour(cont,1,wxColour(255,240,150));
 				m_calendario->SetCellBackgroundColour(cont,2,wxColour(255,240,150));
 			}
-		
 			cont++;
-	
 		}
 	}	
 }
@@ -139,6 +132,8 @@ void CalendarioHabitaciones::ClickBotonBuscarReservas( wxCommandEvent& event )  
 	refrescarSelectorPersona();
 }
 
+
+
 void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 	if(SelectorPersona->GetSelection() == wxNOT_FOUND ){
 		wxMessageBox("Seleccione a una persona para continuar","Error",wxICON_ERROR);
@@ -159,36 +154,41 @@ void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 		return;
 	}
 	
-	bool yaOcupado = false;
-	for(int i = 0; i < m_agenda->CantidadDatos();i++){
-		Persona &p = m_agenda->verPersona(i);
-		if(p.verHab() == to_string(numeroHabitacion)){
-			if(p.verEstado()){
-				yaOcupado = true;
-			}
-		}
-	}
 	
-	if(yaOcupado){
-		wxMessageBox("Habitación ocupada","Error",wxICON_ERROR);
-		return;
-	}
 	
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
 		Persona &p = m_agenda->verPersona(i);
+		pair<wxDateTime,wxDateTime> x = p.verFechaReserva();
+		wxDateTime entrada = x.first;
+		wxDateTime salida = x.second;
+		entrada.ResetTime();
+		salida.ResetTime();
+		
 		if(p.verNombre() == nombre && p.verApellido() == apellido){
-			if(p.verEstado()){
-				wxMessageBox("Este huesped ya esta ocupando la habitación","Error",wxICON_ERROR);
+			if(p.verEstadoReservo_ocupo()){
+				wxMessageBox("Este huesped ya esta ocupando una habitación","Error",wxICON_ERROR);
 				return;
 			}else{
-				p.modificarEstado();
+				p.modificarReservo_ocupo();
+				//se buscan los acompañantes que estan con el titular
+				for(int j = 0; j < m_agenda->CantidadDatos();j++){
+					Persona &h = m_agenda->verPersona(j);
+					pair<wxDateTime,wxDateTime> f = h.verFechaReserva();
+					wxDateTime entradaAcompanante = f.first;
+					wxDateTime salidaAcompanante = f.second;
+					entradaAcompanante.ResetTime();
+					salidaAcompanante.ResetTime();
+					if(entradaAcompanante == entrada && salidaAcompanante == salida && h.verRol() == "Acompanante"){
+						h.modificarReservo_ocupo();
+					}
+				}
+				break;
 			}
 		}
 	}
 	
 	long numero;
 	if (!TextoNumeroHabReserva->GetStringSelection().ToLong(&numero)) {
-		cout << "Error: Número de habitación inválido." << endl;
 		return;
 	}
 	
@@ -197,17 +197,21 @@ void CalendarioHabitaciones::ClickBotonOcupar( wxCommandEvent& event ){
 		if (m_agendaHabitaciones->verHabitacion(i).verNumero() == numero) {
 			Habitacion &hab = m_agendaHabitaciones->verHabitacion(i);
 			monto = hab.verPrecio();
-			monto_total = monto * 0.7;
+			monto_total = monto * 0.7 + 1;
+			hab.actualizarEstado();
 			break;
 		}
 	}
+	
+	//se guardan los datos en las tranascciones y en la agenda
 	string motivo = "Pago total de la habitación " + to_string(numero) ;
 	wxDateTime a = wxDateTime::Now();
 	m_transacciones->agregarHistorial(motivo,monto_total,true,a);
 	m_transacciones->GuardarActividad();
-	
+	m_agendaHabitaciones->guardar();
 	m_agenda->Guardar();
 	refrescarCalendario();
 	wxMessageBox("Disfrute del opedaje","Excelente",wxICON_INFORMATION);
 }
 
+CalendarioHabitaciones::~CalendarioHabitaciones() {}

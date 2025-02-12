@@ -24,14 +24,14 @@
 #include <wx/bmpbuttn.h>
 #include <wx/button.h>
 #include <wx/frame.h>
-#include <wx/textctrl.h>
-#include <wx/grid.h>
-#include <wx/datectrl.h>
-#include <wx/dateevt.h>
-#include <wx/choice.h>
-#include <wx/dialog.h>
 #include <wx/checkbox.h>
 #include <wx/panel.h>
+#include <wx/grid.h>
+#include <wx/choice.h>
+#include <wx/datectrl.h>
+#include <wx/dateevt.h>
+#include <wx/textctrl.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -47,15 +47,17 @@ class vPrincipal : public wxFrame
 		wxStaticBitmap* m_bitmap5;
 		wxStaticText* m_staticText60;
 		wxStaticText* m_staticText62;
+		wxBitmapButton* BotonReservas;
+		wxBitmapButton* BotonTransacciones;
 		wxBitmapButton* BotonHabitaciones;
 		wxBitmapButton* BotonHuesped;
-		wxBitmapButton* BotonTransacciones;
 		wxStaticText* m_staticText63;
 		
 		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBotonReservas( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonTransacciones( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonHabitacion( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonHuesped( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBotonTransacciones( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
@@ -63,6 +65,63 @@ class vPrincipal : public wxFrame
 		vPrincipal( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Ventana Principal"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1920,1080 ), long style = wxDEFAULT_FRAME_STYLE|wxMAXIMIZE|wxTAB_TRAVERSAL );
 		
 		~vPrincipal();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class ReservasHab
+///////////////////////////////////////////////////////////////////////////////
+class ReservasHab : public wxFrame 
+{
+	private:
+	
+	protected:
+		wxPanel* m_panel;
+		wxCheckBox* checkReservadas;
+		wxCheckBox* checkOcupadas;
+		wxCheckBox* checkMasSi;
+		wxCheckBox* checkMenosSi;
+		wxCheckBox* checkSimples;
+		wxCheckBox* checkDobles;
+		wxCheckBox* checkVip;
+		wxCheckBox* checkCapacidadMasCuatro;
+		wxCheckBox* checkCapacidadMenosCuatro;
+		wxCheckBox* checkSinReservas;
+		wxCheckBox* checkConReservas;
+		wxCheckBox* checkOcupando;
+		wxStaticText* textinvisible;
+		wxBitmapButton* BotonDesplegarPanel;
+		wxBitmapButton* BotonAplicar;
+		wxGrid* listaHab;
+		wxStaticText* m_staticText3;
+		wxStaticText* m_staticText4;
+		wxChoice* SelectorHabitacion;
+		wxStaticText* m_staticText64;
+		wxDatePickerCtrl* FechaEntrada;
+		wxStaticText* m_staticText65;
+		wxDatePickerCtrl* FechaSalida;
+		wxCheckBox* checkAplicarFiltros;
+		wxStaticBitmap* m_bitmap2;
+		wxChoice* SelectorHuesped;
+		wxBitmapButton* BotonAgregarPersona;
+		wxBitmapButton* BotonReservar;
+		wxBitmapButton* BotonQuitarReserva;
+		wxBitmapButton* BotonCalendario;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void ClickBotonDesplegarPanel( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonAplicarFiltro( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonAgregarPersona( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonReservar( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonQuitarReserva( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ClickBotonCalendario( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		
+		ReservasHab( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Reservas"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 585,671 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		
+		~ReservasHab();
 	
 };
 
@@ -78,35 +137,20 @@ class listHabitaciones : public wxFrame
 		wxTextCtrl* BuscadorHabitaciones;
 		wxBitmapButton* BotonBuscarHabitacion;
 		wxGrid* GrillaHabitaciones;
-		wxBitmapButton* BotonCalendario;
 		wxBitmapButton* BotonAgregarHabitacion;
 		wxBitmapButton* BotonEliminarHabitacion;
 		wxBitmapButton* m_button8;
-		wxStaticText* m_staticText3;
-		wxStaticText* m_staticText4;
-		wxTextCtrl* InputAgregarHabitacion;
-		wxStaticText* m_staticText64;
-		wxDatePickerCtrl* FechaEntrada;
-		wxStaticText* m_staticText65;
-		wxDatePickerCtrl* FechaSalida;
-		wxStaticBitmap* m_bitmap2;
-		wxChoice* SelectorHuesped;
-		wxBitmapButton* BotonReservar;
-		wxBitmapButton* BotonQuitarReserva;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void ClickBotonBuscarHabitacion( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBotonCalendario( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonAgregarHabitacion( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonEliminarHabitacion( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ClickBotonModificarHabitacion( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBotonReservar( wxCommandEvent& event ) { event.Skip(); }
-		virtual void ClickBotonQuitarReserva( wxCommandEvent& event ) { event.Skip(); }
 		
 	
 	public:
 		
-		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 518,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHabitaciones( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Habitaciones"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 549,624 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHabitaciones();
 	
@@ -151,6 +195,8 @@ class AgHabitacion : public wxDialog
 		wxTextCtrl* TextoNumeroHab;
 		wxStaticText* m_staticText6;
 		wxTextCtrl* TextoTipoHab;
+		wxStaticText* m_staticText63;
+		wxTextCtrl* TextoCapacidad;
 		wxStaticText* m_staticText7;
 		wxTextCtrl* TextoPrecioHab;
 		wxBitmapButton* BotonAceptarHab;
@@ -193,7 +239,7 @@ class listHuespedes : public wxFrame
 	
 	public:
 		
-		listHuespedes( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Huespedes"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 869,463 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		listHuespedes( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Huespedes"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 924,463 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 		
 		~listHuespedes();
 	

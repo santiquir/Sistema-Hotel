@@ -12,14 +12,21 @@ ListaHuespedes::ListaHuespedes(wxWindow *parent,GestionPersonas* m_agenda, Gesti
 	
 }
 
+//Mostar Lista
 void ListaHuespedes::refrescarGrilla(){
+	//Se toma el numero de filas, si es mayor a 0 se eliminan
 	if (GrillaHuespedes->GetNumberRows() > 0) {
 		GrillaHuespedes->DeleteRows(0, GrillaHuespedes->GetNumberRows());
 	}
+	//indices para el boton de busqueda
 	indices.clear();
 	
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
 		Persona &p = m_agenda->verPersona(i);
+		string estado;
+		if(p.verEstadoReservo_ocupo()) estado = " / Ocupa";
+		else if(p.verEstadoTieneHabitacion() == true && p.verEstadoReservo_ocupo() == false)estado = " / No ocupa";
+		else estado = "";
 		GrillaHuespedes->AppendRows();
 		GrillaHuespedes->SetCellValue(i,0,p.verApellido());
 		GrillaHuespedes->SetCellValue(i,1,p.verNombre());
@@ -28,7 +35,8 @@ void ListaHuespedes::refrescarGrilla(){
 		GrillaHuespedes->SetCellValue(i,4,to_string(p.verDNI()));
 		GrillaHuespedes->SetCellValue(i,5,wxString::Format("%d/%d/%d", 
 														   p.verDiaNacimiento(), p.verMesNacimiento(), p.verAnioNacimiento()));
-		GrillaHuespedes->SetCellValue(i,6,p.verHab());
+		GrillaHuespedes->SetCellValue(i,6,p.verHab() + estado);
+		GrillaHuespedes->SetCellValue(i,7,p.verRol());
 		indices.push_back(i);
 	}
 }
@@ -38,10 +46,6 @@ void ListaHuespedes::ClickBotonAgregarHuesped( wxCommandEvent& event )  {
 	AgregarHuesped win(this,m_agenda);
 	if(win.ShowModal()==1)
 		refrescarGrilla();
-}
-
-ListaHuespedes::~ListaHuespedes() {
-	
 }
 
 void ListaHuespedes::ClickBotonBuscarHuesped( wxCommandEvent& event )  {
@@ -56,10 +60,13 @@ void ListaHuespedes::ClickBotonBuscarHuesped( wxCommandEvent& event )  {
 	int cont = 0;
 	for(int i = 0; i < m_agenda->CantidadDatos();i++){
 		Persona &p = m_agenda->verPersona(i);
+		string estado;
+		if(p.verEstadoReservo_ocupo()) estado = "S.O";
+		else estado = "N.O";
 		
 		
 		
-		if(p.verNombre() == s or p.verApellido() == s or p.verTelefono() == s or p.verMail() == s or to_string(p.verDNI()) == s or to_string(p.verDiaNacimiento()) == s or to_string(p.verMesNacimiento()) == s or to_string(p.verAnioNacimiento()) == s){
+		if(p.verNombre() == s or p.verApellido() == s or p.verRol() == s or p.verTelefono() == s or p.verMail() == s or to_string(p.verDNI()) == s or to_string(p.verDiaNacimiento()) == s or to_string(p.verMesNacimiento()) == s or to_string(p.verAnioNacimiento()) == s){
 			GrillaHuespedes->AppendRows();
 			GrillaHuespedes->SetCellValue(cont,0,p.verApellido());
 			GrillaHuespedes->SetCellValue(cont,1,p.verNombre());
@@ -67,7 +74,8 @@ void ListaHuespedes::ClickBotonBuscarHuesped( wxCommandEvent& event )  {
 			GrillaHuespedes->SetCellValue(cont,3,p.verTelefono());
 			GrillaHuespedes->SetCellValue(cont,4,to_string(p.verDNI()));
 			GrillaHuespedes->SetCellValue(cont,5,wxString::Format("%d/%d/%d", p.verDiaNacimiento(), p.verMesNacimiento(), p.verAnioNacimiento()));
-			GrillaHuespedes->SetCellValue(cont,6,p.verHab());
+			GrillaHuespedes->SetCellValue(cont,6,p.verHab() + "/" + estado);
+			GrillaHuespedes->SetCellValue(cont,7,p.verRol());
 			cont++;
 			indices.push_back(i);
 		}
@@ -99,13 +107,14 @@ void ListaHuespedes::ClickBotonEliminarHuesped( wxCommandEvent& event )  {
 void ListaHuespedes::ClickBotonModificarHuesped(wxCommandEvent& event) {
 	int f = GrillaHuespedes->GetGridCursorRow(); 
 	
-	//MENSAJE DE ERROR SI NO SELECCIONA NADA
+	//Mensaje por si no encuentra nada
 	
 	if (f == wxNOT_FOUND) { 
 		wxMessageBox("Por favor, selecciona un huésped para modificar.", "Error", wxICON_ERROR);
 		return;
 	}
 	
+	//Se guarda un puntero con la persona a modificar
 	int ind = indices[f];
 	Persona *aModificar = &m_agenda->verPersona(ind);
 	
@@ -117,3 +126,8 @@ void ListaHuespedes::ClickBotonModificarHuesped(wxCommandEvent& event) {
 		refrescarGrilla();
 	}
 }	
+
+ListaHuespedes::~ListaHuespedes() {
+	
+}
+

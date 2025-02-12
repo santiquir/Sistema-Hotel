@@ -115,15 +115,6 @@ void GestionCalendario::LeerDesdeArchivo() {
 		nuevoArchivo.close();
 		return;
 	}
-	if (!archivo) {
-		// Si el archivo no existe, crearlo
-		ofstream nuevoArchivo(nombreArchivos, ios::binary);
-		if (!nuevoArchivo) {
-			throw runtime_error("No se pudo crear el archivo para leer el calendario");
-		}
-		nuevoArchivo.close();
-		return;
-	}
 	
 	// Leer el número de habitaciones
 	size_t numHabitaciones;
